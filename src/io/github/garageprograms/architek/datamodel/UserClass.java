@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 public class UserClass extends UserFile{
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public ArrayList<UserClass> parentClasses = new ArrayList<UserClass>();
-	public UserFile parent = null;
+	public UserFile    parentFile = null;
 	
 	public boolean canApplyProperty(Property propertyList){
 		for (Property p : this.properties){
@@ -41,7 +41,10 @@ public class UserClass extends UserFile{
 	}
 	
 	public String getLookupID(){
-		return 
-				this.name;
+		String filename = this.name;
+		if (this.parentFile != null){
+			filename = this.parentFile.name;
+		}
+		return this.parent.name+":"+filename+":"+this.name;
 	}
 }
