@@ -19,6 +19,8 @@ public class ArchiTeK {
 	private JMenuBar menuBar;
 	private JMenu fileMenu, aboutMenu;
 
+	private DrawingPanel panel;
+
 	public ArchiTeK() {
 		// Create frame with caption
 		frame = new JFrame("ArchiTeK");
@@ -27,6 +29,9 @@ public class ArchiTeK {
 		// Set size to fullscreen.
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		frame.setSize((int)tk.getScreenSize().getWidth(), (int)tk.getScreenSize().getHeight());
+
+		// Create the drawing panel
+		panel = new DrawingPanel();
 
 		// Create menu bar
 		menuBar = new JMenuBar();
@@ -49,7 +54,7 @@ public class ArchiTeK {
 
 	private Action newProject = new AbstractAction("New Project") {
 		public void actionPerformed(ActionEvent ae) {
-			// Create new project
+			panel.createProject("Untitled");
 		}
 	};
 
