@@ -37,6 +37,8 @@ public class ArchiTeK {
 		menuBar.add(fileMenu);
 		JMenu createNew = new JMenu("Create new...");
 		fileMenu.add(createNew);
+		fileMenu.addSeparator();
+		fileMenu.add(quit);
 
 		aboutMenu = new JMenu("About");
 		menuBar.add(aboutMenu);
@@ -60,6 +62,12 @@ public class ArchiTeK {
 				"GNU General Public License for more details.\n\n" +
 				"You should have received a copy of the GNU General Public License\n" +
 				"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n");
+		}
+	};
+
+	private Action quit = new AbstractAction("Quit") {
+		public void actionPerformed(ActionEvent ae) {
+			System.exit(0);
 		}
 	};
 
