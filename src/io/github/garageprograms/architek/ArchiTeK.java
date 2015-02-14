@@ -28,24 +28,36 @@ public class ArchiTeK {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		frame.setSize((int)tk.getScreenSize().getWidth(), (int)tk.getScreenSize().getHeight());
 
-		/* CREATE MENUS */
 		// Create menu bar
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		// Create menus
+		/* CREATE MENUS */
+		// Create file menu
 		fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
-		JMenu createNew = new JMenu("Create new...");
-		fileMenu.add(createNew);
+		fileMenu.add(newProject);
 		fileMenu.addSeparator();
 		fileMenu.add(quit);
 
+		// Create about menu
 		aboutMenu = new JMenu("About");
 		menuBar.add(aboutMenu);
 		aboutMenu.add(copyrightPopup);
 
 		frame.setVisible(true);
 	}
+
+	private Action newProject = new AbstractAction("New Project") {
+		public void actionPerformed(ActionEvent ae) {
+			// Create new project
+		}
+	};
+
+	private Action quit = new AbstractAction("Quit") {
+		public void actionPerformed(ActionEvent ae) {
+			System.exit(0);
+		}
+	};
 
 	private Action copyrightPopup = new AbstractAction("Copyright") {
 		public void actionPerformed(ActionEvent ae) {
@@ -62,12 +74,6 @@ public class ArchiTeK {
 				"GNU General Public License for more details.\n\n" +
 				"You should have received a copy of the GNU General Public License\n" +
 				"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n");
-		}
-	};
-
-	private Action quit = new AbstractAction("Quit") {
-		public void actionPerformed(ActionEvent ae) {
-			System.exit(0);
 		}
 	};
 
