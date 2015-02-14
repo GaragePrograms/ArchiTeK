@@ -24,4 +24,8 @@
 	</target>
 
 	<target name="main" depends="jar" />
+
+	<target name="run" depends="jar" >
+		<java jar="${jar.dir}/${ant.project.name}.jar" fork="true" />
+	</target>
 </project>
