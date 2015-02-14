@@ -35,6 +35,7 @@ public class ArchiTeK {
 		// Create file menu
 		fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
+		fileMenu.add(newProject);
 		fileMenu.addSeparator();
 		fileMenu.add(quit);
 
@@ -45,6 +46,18 @@ public class ArchiTeK {
 
 		frame.setVisible(true);
 	}
+
+	private Action newProject = new AbstractAction("New Project") {
+		public void actionPerformed(ActionEvent ae) {
+			// Create new project
+		}
+	};
+
+	private Action quit = new AbstractAction("Quit") {
+		public void actionPerformed(ActionEvent ae) {
+			System.exit(0);
+		}
+	};
 
 	private Action copyrightPopup = new AbstractAction("Copyright") {
 		public void actionPerformed(ActionEvent ae) {
@@ -61,12 +74,6 @@ public class ArchiTeK {
 				"GNU General Public License for more details.\n\n" +
 				"You should have received a copy of the GNU General Public License\n" +
 				"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n");
-		}
-	};
-
-	private Action quit = new AbstractAction("Quit") {
-		public void actionPerformed(ActionEvent ae) {
-			System.exit(0);
 		}
 	};
 
