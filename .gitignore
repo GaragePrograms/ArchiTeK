@@ -1,2 +1,5 @@
 # Ignore binary files.
 bin/
+
+# Ignore Vim temp files
+*.swp

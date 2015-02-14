@@ -15,6 +15,7 @@ import javax.swing.*;
 public class ArchiTeK {
 	private JFrame frame;
 	private JMenuBar menuBar;
+	private JMenu fileMenu, aboutMenu;
 
 	public ArchiTeK() {
 		// Create frame with caption
@@ -25,9 +26,15 @@ public class ArchiTeK {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		frame.setSize((int)tk.getScreenSize().getWidth(), (int)tk.getScreenSize().getHeight());
 
-		// Setup menu
+		/* SETUP MENU */
+		// Create menu bar
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
+		// Create menus
+		fileMenu = new JMenu("File");
+		menuBar.add(fileMenu);
+		aboutMenu = new JMenu("About");
+		menuBar.add(aboutMenu);
 
 		frame.setVisible(true);
 	}
