@@ -35,11 +35,11 @@ public class UserFile extends SerializableArchiTeKNode{
 		}
 		Element functionsNode = doc.createElement("encapsulatedFunctions");
 		for (UserFunction f : this.encapsulatedFunctions){
-			classesNode.appendChild(f.saveToXML(doc));
+			functionsNode.appendChild(f.saveToXML(doc));
 		}
 		Element variablesNode = doc.createElement("encapsulatedVariables");
 		for (UserVariable v : this.encapsulatedVariables){
-			classesNode.appendChild(v.saveToXML(doc));
+			variablesNode.appendChild(v.saveToXML(doc));
 		}
 		node.appendChild(classesNode);
 		node.appendChild(functionsNode);
