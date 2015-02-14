@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class UserProject extends ArchiTeKNode {
 	public ArrayList<UserFile> files = new ArrayList<UserFile>();
+	public ArrayList<UserProject> imports = new ArrayList<UserProject>();
 	
 	public void save(String filename){};
 	public void load(String filename){};
