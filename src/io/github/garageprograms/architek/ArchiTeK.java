@@ -35,6 +35,8 @@ public class ArchiTeK {
 		// Create menus
 		fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
+		JMenu createNew = new JMenu("Create new...");
+		fileMenu.add(createNew);
 
 		aboutMenu = new JMenu("About");
 		menuBar.add(aboutMenu);
