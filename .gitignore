@@ -1,5 +1,9 @@
 # Ignore binary files.
 bin/
+
+# Ignore Vim temporary files
 *.swp
+
+# Ignore Eclipse files
 .classpath
 .project
