@@ -28,18 +28,17 @@ public class ArchiTeK {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		frame.setSize((int)tk.getScreenSize().getWidth(), (int)tk.getScreenSize().getHeight());
 
-		/* CREATE MENUS */
 		// Create menu bar
 		menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		// Create menus
+		/* CREATE MENUS */
+		// Create file menu
 		fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
-		JMenu createNew = new JMenu("Create new...");
-		fileMenu.add(createNew);
 		fileMenu.addSeparator();
 		fileMenu.add(quit);
 
+		// Create about menu
 		aboutMenu = new JMenu("About");
 		menuBar.add(aboutMenu);
 		aboutMenu.add(copyrightPopup);
