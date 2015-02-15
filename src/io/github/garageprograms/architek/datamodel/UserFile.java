@@ -101,6 +101,26 @@ public class UserFile extends SerializableArchiTeKNode {
 	public ArrayList<UserVariable> encapsulatedVariables = new ArrayList<UserVariable>();
 	public UserProject parent = null;
 
+	public void removeChildren() {
+		for(int i = 0; i < encapsulatedClasses.size(); i++) {
+			if(encapsulatedClasses.get(i).remove) {
+				encapsulatedClasses.remove(i);
+			} else {
+				encapsulatedClasses.get(i).removeChildren();
+			}
+		}
+		for(int i = 0; i < encapsulatedFunctions.size(); i++) {
+			if(encapsulatedFunctions.get(i).remove) {
+				encapsulatedFunctions.remove(i);
+			}
+		}
+		for(int i = 0; i < encapsulatedVariables.size(); i++) {
+			if(encapsulatedVariables.get(i).remove) {
+				encapsulatedVariables.remove(i);
+			}
+		}
+	}
+
 	public void addClass(UserClass c){
 		this.encapsulatedClasses.add(c);
 		c.parent = this;

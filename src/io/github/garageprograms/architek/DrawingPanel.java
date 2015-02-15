@@ -57,6 +57,13 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 	
 	public void updateFrame(){
+		for(int i = 0; i < currentProject.files.size(); i++) {
+			if(currentProject.files.get(i).remove) {
+				currentProject.files.remove(i);
+			} else {
+				currentProject.files.get(i).removeChildren();
+			}
+		}
 		this.removeAll();
 		this.addAllFilesAsJLabels();
 		frame.revalidate();
