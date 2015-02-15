@@ -1,5 +1,7 @@
 package io.github.garageprograms.architek.datamodel;
 
+import io.github.garageprograms.architek.DrawingPanel;
+
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
@@ -76,5 +78,11 @@ public class UserFile extends SerializableArchiTeKNode {
 		node.appendChild(functionsNode);
 		node.appendChild(variablesNode);
 		return node;
+	}
+
+	public void addChildren(DrawingPanel drawingPanel) {
+		for (UserClass c : this.encapsulatedClasses){
+			c.installToPanel(drawingPanel, this);
+		}
 	}
 }

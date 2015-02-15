@@ -1,5 +1,6 @@
 package io.github.garageprograms.architek.datamodel;
 
+import io.github.garageprograms.architek.DrawingPanel;
 import io.github.garageprograms.architek.OptionsFrame;
 
 import java.awt.Graphics2D;
@@ -17,6 +18,7 @@ public abstract class ArchiTeKNode extends JLabel {
 	public JButton editButton = new JButton("Edit");
 	public int x = 0;
 	public int y = 0;
+	
 
 	public ArchiTeKNode(String name, String comment){
 		super(name);
@@ -31,6 +33,14 @@ public abstract class ArchiTeKNode extends JLabel {
 	         }          
 	      });
 	}
+	
+	public int getAbsX(){
+		return x;
+	}
+	
+	public int getAbsY(){
+		return y;
+	}
 
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.RED);
@@ -43,7 +53,7 @@ public abstract class ArchiTeKNode extends JLabel {
 	}
 	
 	public void restoreLocation(){
-		this.setLocation(x, y);
+		this.setLocation(this.getAbsX(), this.getAbsY());
 		this.editButton.setLocation(x+this.getBounds().width, y);
 	}
 	
@@ -60,5 +70,13 @@ public abstract class ArchiTeKNode extends JLabel {
 		this.name=name;
 		this.setText(name);
 		this.setLocation(p);
+	}
+	
+	public void addChildren(DrawingPanel drawingPanel) {}
+	public void installToPanel(DrawingPanel drawingPanel, ArchiTeKNode parent){
+		drawingPanel.add(this);
+		drawingPanel.add(this.editButton);
+		this.restoreLocation();
+		this.addChildren(drawingPanel);
 	}
 }

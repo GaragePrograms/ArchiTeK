@@ -47,9 +47,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	public void addAllFilesAsJLabels(){
 		for (UserFile f : this.currentProject.files){
 			System.out.println("Adding "+f);
-			this.add(f);
-			this.add(f.editButton);
-			f.show();
+			f.installToPanel(this, f);
 		}
 	}
 
