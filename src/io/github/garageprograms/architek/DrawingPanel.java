@@ -46,7 +46,9 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 
 	public void addFile(String name, String comment) {
-		currentProject.files.add(new UserFile(name, comment));
+		UserFile newFile = new UserFile(name, comment);
+		currentProject.files.add(newFile);
+		add(newFile);
 		repaint();
 	}
 
@@ -56,7 +58,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	public void mousePressed(MouseEvent me) {
 		objectLoop:
 		for(int i = 0; i < currentProject.files.size(); i++) {
-			if(currentProject.files.get(i).rect.contains(me.getPoint())) {
+			if(currentProject.files.get(i).getBounds().contains(me.getPoint())) {
 				node = currentProject.files.get(i);
 				break objectLoop;
 			}
@@ -66,7 +68,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 
 	public void mouseDragged(MouseEvent me) {
 		if(node == null) return;
-		node.rect.setLocation(me.getPoint());
+		node.setLocation(me.getPoint());
 		repaint();
 	}
 	public void mouseMoved(MouseEvent me) { }

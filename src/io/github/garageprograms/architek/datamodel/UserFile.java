@@ -13,7 +13,6 @@ import org.w3c.dom.NodeList;
 public class UserFile extends SerializableArchiTeKNode {
 	public UserFile(String name, String comment) {
 		super(name, comment);
-		rect = new Rectangle(0, 10, 15, 15);
 	}
 	
 	public UserFile(Element elem, ArchiTeKNode directParent, UserProject project){
@@ -48,11 +47,9 @@ public class UserFile extends SerializableArchiTeKNode {
 
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.RED);
-		g2d.draw(rect);
-		g2d.setColor(Color.BLACK);
-		g2d.drawString(name, rect.x, rect.y + 10);
+		g2d.draw(getBounds());
 	}
-	
+
 	public void addClass(UserClass c){
 		this.encapsulatedClasses.add(c);
 		c.parent = this;

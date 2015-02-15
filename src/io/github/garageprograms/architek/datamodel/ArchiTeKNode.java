@@ -1,23 +1,18 @@
 package io.github.garageprograms.architek.datamodel;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import javax.swing.JLabel;
 
-public abstract class ArchiTeKNode {
+public abstract class ArchiTeKNode extends JLabel {
 	public String name = "";
 	public String comment = "";
-	public Rectangle rect;
-	public boolean dragging;
 
 	public ArchiTeKNode(String name, String comment){
+		super(name);
 		this.name=name;
 		this.comment=comment;
-		rect = new Rectangle(0, 0, 0, 0);
-		dragging = false;
+		setLocation(0, 10);
 	}
 	
-	public void draw(Graphics2D g2d) { }
-
 	public boolean canApplyProperty(Property p){
 		return false;
 	}
