@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class UserProject extends SerializableArchiTeKNode {
@@ -62,5 +61,24 @@ public class UserProject extends SerializableArchiTeKNode {
 		node.appendChild(importsNode);
 		
 		return node;
+	}
+	
+	public UserClass getClassByLookup(String lookupID){
+		for (UserFile f : this.files){
+			if (f instanceof UserClass){
+				UserClass c = (UserClass)f;
+				if (c.getLookupID().equals(lookupID)){
+					return c;
+				}
+			}else{
+				for (UserClass c : f.encapsulatedClasses){
+					c.getLookupID();
+					if (c.getLookupID().equals(lookupID)){
+						return c;
+					}
+				}
+			}
+		}
+		return null;
 	}
 }

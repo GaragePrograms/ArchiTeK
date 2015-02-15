@@ -7,8 +7,6 @@ public class Property extends SerializableArchiTeKNode{
 	public Property(String name, String comment) {
 		super(name, comment);
 	}
-
-	String fullyQualifiedID = "DefaultProperty";
 	
 	public boolean canBeAppliedToClass(UserClass c){
 		return false;
@@ -24,7 +22,7 @@ public class Property extends SerializableArchiTeKNode{
 
 	public Element saveToXML(Document doc) {
 		Element node = doc.createElement("property");
-		node.setAttribute("fullyQualifiedID", this.fullyQualifiedID);
+		node.setAttribute("name", this.name);
 		return node;
 	}
 }

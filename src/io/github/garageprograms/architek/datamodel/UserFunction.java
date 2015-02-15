@@ -1,19 +1,40 @@
 package io.github.garageprograms.architek.datamodel;
 
+import io.github.garageprograms.architek.plugins.PluginManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class UserFunction extends SerializableArchiTeKNode{
 	public UserFunction(String name, String comment) {
 		super(name, comment);
 	}
+	
+	public UserFunction(Element elem, ArchiTeKNode directParent, UserProject project){
+		super("","");
+		this.defaultLoadFromXML(elem);
+		this.returnType=project.getClassByLookup(elem.getAttribute("returnType"));
+		
+		NodeList propertiesNode = elem.getElementsByTagName("properties").item(0).getChildNodes();
+		for (int temp = 0; temp < propertiesNode.getLength(); temp++) {
+			Element propertyNode = (Element)propertiesNode.item(temp);
+			this.properties.add(PluginManager.getInstance().getProperty(propertyNode.getAttribute("name")));
+		}
+		
+		NodeList parametersNode = elem.getElementsByTagName("parameters").item(0).getChildNodes();
+		for (int temp = 0; temp < parametersNode.getLength(); temp++) {
+			Element parameterNode = (Element)parametersNode.item(temp);
+			this.parameters.put(parameterNode.getAttribute("name"), project.getClassByLookup(parameterNode.getAttribute("type")));
+		}
+	}
 
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public HashMap<String, UserClass> parameters = new HashMap<String, UserClass>();
-	public UserClass returnType = null;
+	public UserClass returnType = PluginManager.getInstance().language.voidType;
 	public UserFile parent = null;
 	
 	public boolean canApplyProperty(Property propertyList){
@@ -28,11 +49,7 @@ public class UserFunction extends SerializableArchiTeKNode{
 	public Element saveToXML(Document doc){
 		Element node = doc.createElement("UserFunction");
 		node.appendChild(this.defaultSaveToXML(doc));
-		if (this.returnType!=null){
-			node.setAttribute("returnType", this.returnType.getLookupID());
-		}else{
-			node.setAttribute("returnType", "__void__");
-		}
+		node.setAttribute("returnType", this.returnType.getLookupID());
 		Element propertiesNode = doc.createElement("properties");
 		for (Property p : this.properties){
 			propertiesNode.appendChild(p.saveToXML(doc));

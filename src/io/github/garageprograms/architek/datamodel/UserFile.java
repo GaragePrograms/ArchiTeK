@@ -24,13 +24,13 @@ public class UserFile extends SerializableArchiTeKNode{
 		NodeList functionsNode = elem.getElementsByTagName("encapsulatedFunctions").item(0).getChildNodes();
 		for (int temp = 0; temp < functionsNode.getLength(); temp++) {
 			Element functionNode = (Element)functionsNode.item(temp);
-			//this.addFunction(new UserFunction(functionNode, (ArchiTeKNode)this, project));
+			this.addFunction(new UserFunction(functionNode, (ArchiTeKNode)this, project));
 		}
 		
 		NodeList variablesNode = elem.getElementsByTagName("encapsulatedVariables").item(0).getChildNodes();
 		for (int temp = 0; temp < variablesNode.getLength(); temp++) {
 			Element variableNode = (Element)variablesNode.item(temp);
-			//this.addVariable(new UserVariable(variableNode, (ArchiTeKNode)this, project));
+			this.addVariable(new UserVariable(variableNode, (ArchiTeKNode)this, project));
 		}
 		
 		this.parent=project;
@@ -43,8 +43,7 @@ public class UserFile extends SerializableArchiTeKNode{
 	
 	public void addClass(UserClass c){
 		this.encapsulatedClasses.add(c);
-		c.parent = this.parent;
-		c.parentFile = this;
+		c.parent = this;
 	}
 	
 	public void addFunction(UserFunction f){
