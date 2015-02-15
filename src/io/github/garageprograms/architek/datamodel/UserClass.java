@@ -10,6 +10,14 @@ public class UserClass extends UserFile{
 		super(name, comment);
 	}
 
+	public UserClass(Element classNode, ArchiTeKNode archiTeKNode, UserProject project) {
+		super(classNode, archiTeKNode, project);
+		this.parent=project;
+		if (archiTeKNode!=project){
+			this.parentFile=(UserFile)archiTeKNode;
+		}
+	}
+
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public ArrayList<UserClass> parentClasses = new ArrayList<UserClass>();
 	public UserFile    parentFile = null;

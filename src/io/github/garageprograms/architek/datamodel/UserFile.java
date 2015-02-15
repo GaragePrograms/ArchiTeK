@@ -4,10 +4,36 @@ import java.util.ArrayList;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class UserFile extends SerializableArchiTeKNode{
 	public UserFile(String name, String comment) {
 		super(name, comment);
+	}
+	
+	public UserFile(Element elem, ArchiTeKNode directParent, UserProject project){
+		super("","");
+		this.defaultLoadFromXML(elem);
+		
+		NodeList classesNode = elem.getElementsByTagName("encapsulatedClasses").item(0).getChildNodes();
+		for (int temp = 0; temp < classesNode.getLength(); temp++) {
+			Element classNode = (Element)classesNode.item(temp);
+			this.addClass(new UserClass(classNode, (ArchiTeKNode)this, project));
+		}
+		
+		NodeList functionsNode = elem.getElementsByTagName("encapsulatedFunctions").item(0).getChildNodes();
+		for (int temp = 0; temp < functionsNode.getLength(); temp++) {
+			Element functionNode = (Element)functionsNode.item(temp);
+			//this.addFunction(new UserFunction(functionNode, (ArchiTeKNode)this, project));
+		}
+		
+		NodeList variablesNode = elem.getElementsByTagName("encapsulatedVariables").item(0).getChildNodes();
+		for (int temp = 0; temp < variablesNode.getLength(); temp++) {
+			Element variableNode = (Element)variablesNode.item(temp);
+			//this.addVariable(new UserVariable(variableNode, (ArchiTeKNode)this, project));
+		}
+		
+		this.parent=project;
 	}
 
 	public ArrayList<UserClass> encapsulatedClasses = new ArrayList<UserClass>();

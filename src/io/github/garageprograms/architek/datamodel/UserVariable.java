@@ -6,6 +6,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class UserVariable extends SerializableArchiTeKNode{
+	public UserVariable(String name, String comment) {
+		super(name, comment);
+	}
+	
+	
+
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public UserClass type = null;
 	public UserFile parent = null;
