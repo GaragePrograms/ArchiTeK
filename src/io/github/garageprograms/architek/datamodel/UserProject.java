@@ -113,9 +113,9 @@ public class UserProject extends SerializableArchiTeKNode {
 	}
 	
 	public UserClass getClassByLookup(String lookupID){
-		System.out.println("====================================");
-		System.out.println("LUID: "+lookupID);
-		System.out.println("REFZ: "+this.name);
+		//System.out.println("====================================");
+		//System.out.println("LUID: "+lookupID);
+		//System.out.println("REFZ: "+this.name);
 		for (UserFile f : this.files){
 			for (UserClass c : f.encapsulatedClasses){
 				//c.getLookupID();
@@ -125,16 +125,16 @@ public class UserProject extends SerializableArchiTeKNode {
 				}
 			}
 		}
-		System.out.println("Not found locally predefined, proceeding to imports...");
-		System.out.println("At this time imports = "+this.imports);
+		//System.out.println("Not found locally predefined, proceeding to imports...");
+		//System.out.println("At this time imports = "+this.imports);
 		for (UserProject p : this.imports){
-			System.out.println("Searching in imports for "+lookupID);
-			System.out.println("Result "+p.getClassByLookup(lookupID));
+			//System.out.println("Searching in imports for "+lookupID);
+			//System.out.println("Result "+p.getClassByLookup(lookupID));
 			if (p.getClassByLookup(lookupID)!=null){
 				return p.getClassByLookup(lookupID);
 			}
 		}
-		System.out.println("Not found in referenced modules. Proceeding to predefs...");
+		//System.out.println("Not found in referenced modules. Proceeding to predefs...");
 		for (UserClass c : this.protoClasses){
 			if (c.getLookupID().equals(lookupID)){
 				return c;
