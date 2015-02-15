@@ -22,35 +22,31 @@ public class OptionsFrame extends JFrame {
 	public JTextArea commentBox = new JTextArea(10, 75);
 	public OptionsFrame(ArchiTeKNode node){
 		super("Node Options");
+		setSize(600, 400);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.node=node;
 		
 		JPanel mainPanel = new JPanel();
+		add(mainPanel);
 		
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-		
-		JPanel namepanel = new JPanel();
-		namepanel.add(new JLabel("Name:"));
+		mainPanel.setLayout(null);
+
+		JLabel nameText = new JLabel("Name:");
+		nameText.setBounds(10, 10, 100, 25);
+		mainPanel.add(nameText);
 		nameBox.setText(node.name);
-		//nameBox.setLocation(0, 0);
-		namepanel.add(nameBox);
+		nameBox.setBounds(110, 10, 470, 25);
+		mainPanel.add(nameBox);
 		
-		mainPanel.add(namepanel);
-		
-		JPanel commentpanel = new JPanel();
-		commentpanel.add(new JLabel("Comment:"));
+		JLabel commentText = new JLabel("Comment:");
+		commentText.setBounds(10, 40, 100, 25);
+		mainPanel.add(commentText);
 		commentBox.setText(node.comment);
-		//commentBox.setLocation(0, 50);
-		commentpanel.add(commentBox);
-		//exitButton.setLocation(0,100);
-		mainPanel.add(commentpanel);
-		
-		mainPanel.add(exitButton);
-		this.add(mainPanel);
-		this.pack();
-		this.setVisible(true);
+		commentBox.setBounds(110, 40, 470, 250);
+		mainPanel.add(commentBox);
 		
 		final OptionsFrame of = this;
-		
+		exitButton.setBounds(260, 325, 80, 25);
 		exitButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		of.node.comment=of.commentBox.getText();
@@ -59,5 +55,8 @@ public class OptionsFrame extends JFrame {
 	        		of.dispose();
 	        	}
 		});
+		mainPanel.add(exitButton);
+
+		setVisible(true);
 	}
 }
