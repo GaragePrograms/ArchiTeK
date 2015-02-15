@@ -38,4 +38,7 @@ public class DrawingPanel extends JPanel/* implements Runnable*/ {
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, frame.getContentPane().getSize().width, frame.getContentPane().getSize().height);
 	}
+
+	// Getter methods:
+	public UserProject getCurrentProject() { return currentProject; }
 }
