@@ -6,9 +6,11 @@ package io.github.garageprograms.architek;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+
 import javax.swing.*;
 
 import io.github.garageprograms.architek.datamodel.UserFile;
+import io.github.garageprograms.architek.plugins.PluginManager;
 
 /**
  * The main class of the program.
@@ -17,13 +19,21 @@ import io.github.garageprograms.architek.datamodel.UserFile;
  * @version 15.02.14
  */
 public class ArchiTeK {
+	private static ArchiTeK instance = null;
+	   public static ArchiTeK getInstance() {
+	      if(instance == null) {
+	         instance = new ArchiTeK();
+	      }
+	      return instance;
+	   }
+	   
 	private JFrame frame;
 	private JMenuBar menuBar;
 	private JMenu fileMenu, editMenu, aboutMenu;
 
-	private DrawingPanel panel;
+	public DrawingPanel panel;
 
-	public ArchiTeK() {
+	private ArchiTeK() {
 		// Create frame with caption
 		frame = new JFrame("ArchiTeK");
 		// Close when 'X' button is pressed
@@ -105,5 +115,5 @@ public class ArchiTeK {
 		}
 	}
 
-	public static void main(String[] args) { new ArchiTeK(); }
+	public static void main(String[] args) { ArchiTeK.getInstance(); }
 }

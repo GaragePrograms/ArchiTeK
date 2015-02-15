@@ -35,4 +35,9 @@ public abstract class ArchiTeKNode extends JLabel {
 	public boolean canApplyProperty(Property p){
 		return false;
 	}
+	
+	public void setNameAndRefresh(String name){
+		this.name=name;
+		this.setText(name);
+	}
 }
