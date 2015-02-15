@@ -2,15 +2,18 @@ package io.github.garageprograms.architek.datamodel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class UserFile extends SerializableArchiTeKNode{
+public class UserFile extends SerializableArchiTeKNode {
 	public UserFile(String name, String comment) {
 		super(name, comment);
+		rect = new Rectangle(0, 10, 15, 15);
 	}
 	
 	public UserFile(Element elem, ArchiTeKNode directParent, UserProject project){
@@ -44,8 +47,10 @@ public class UserFile extends SerializableArchiTeKNode{
 	public UserProject parent = null;
 
 	public void draw(Graphics2D g2d) {
+		g2d.setColor(Color.RED);
+		g2d.draw(rect);
 		g2d.setColor(Color.BLACK);
-		g2d.drawString(name, x, y);
+		g2d.drawString(name, rect.x, rect.y + 10);
 	}
 	
 	public void addClass(UserClass c){
