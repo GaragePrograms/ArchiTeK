@@ -85,4 +85,10 @@ public class UserFile extends SerializableArchiTeKNode {
 			c.installToPanel(drawingPanel, this);
 		}
 	}
+	
+	public void changeChildrensLocationBy(int x, int y) {
+		for (UserClass c : this.encapsulatedClasses){
+			c.changeLocationBy(x, y);
+		}
+	}
 }

@@ -19,6 +19,9 @@ import io.github.garageprograms.architek.datamodel.*;
 public class DrawingPanel extends JPanel implements MouseListener, MouseMotionListener {
 	public UserProject currentProject;
 	private Graphics2D g2d;
+	
+	int lastMouseX=0;
+	int lastMouseY=0;
 
 	private JFrame frame;
 
@@ -48,6 +51,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 		for (UserFile f : this.currentProject.files){
 			System.out.println("Adding "+f);
 			f.installToPanel(this, f);
+			f.restoreLocation();
 		}
 	}
 
@@ -83,8 +87,10 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 
 	public void mouseDragged(MouseEvent me) {
 		if(node == null) return;
-		node.setLocation(me.getPoint());
-		node.saveLocation(me.getX(), me.getY());
+		node.changeLocationBy(me.getX()-this.lastMouseX, me.getY()-this.lastMouseY);
+		this.lastMouseX=me.getX();
+		this.lastMouseY=me.getY();
+		
 		Point p = me.getPoint();
 		p.x+=node.getBounds().width;
 		node.editButton.setLocation(p);

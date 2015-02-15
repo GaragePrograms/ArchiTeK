@@ -62,6 +62,7 @@ public class ArchiTeK {
 		fileMenu.addSeparator();
 		fileMenu.add(saveProject);
 		fileMenu.add(loadProject);
+		fileMenu.add(loadProjectTest);
 		fileMenu.addSeparator();
 		fileMenu.add(quit);
 
@@ -117,6 +118,18 @@ public class ArchiTeK {
 	        } else {
 	            System.out.println("No file selected");
 	        }
+		}
+	};
+	
+	private Action loadProjectTest = new AbstractAction("Load Test Project") {
+		public void actionPerformed(ActionEvent ae) {
+			try {
+				ArchiTeK.getInstance().panel.currentProject=SaveManager.loadProject("python27_v00.ark");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ArchiTeK.getInstance().panel.updateFrame();
 		}
 	};
 
