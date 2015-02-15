@@ -9,6 +9,7 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 
 import io.github.garageprograms.architek.datamodel.Property;
+import io.github.garageprograms.architek.datamodel.UserProject;
 
 public class PluginManager {
    private static PluginManager instance = null;
@@ -23,6 +24,7 @@ public class PluginManager {
 	public ProgrammingLanguage language;
 	public ArrayList<ProgrammingLanguage> languages = new ArrayList<ProgrammingLanguage>();
 	public ArrayList<Plugin> plugins = new ArrayList<Plugin>();
+	public ArrayList<String> requredLibraries = new ArrayList<String>();
 	
 	public Property getProperty(String name){
 		for (Property p : this.language.properties){
@@ -93,6 +95,12 @@ public class PluginManager {
 				| ClassNotFoundException | InstantiationException
 				| IllegalAccessException | IOException | NoSuchMethodException | InvocationTargetException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void onProjectStart(UserProject p){
+		for (String lib : this.requredLibraries){
+			p.installLibrary(lib);
 		}
 	}
 }
