@@ -57,7 +57,7 @@ public class PythonExporter implements Exporter {
 	public void writeUserFunction(UserProject p, UserFunction f, BufferedWriter writer, int indentationLevel) throws IOException{
 		log("Writing function "+f.name+" at indent "+indentationLevel);
 		this.insertIndentation(writer, indentationLevel);writer.write("def ");writer.write(f.name);writer.write("():\n");
-		this.insertIndentation(writer, indentationLevel+1);writer.write("\"\"\"");writer.write(f.comment);writer.write("\"\"\"\n\n");
+		this.insertIndentation(writer, indentationLevel+1);writer.write("pass \"\"\"");writer.write(f.comment);writer.write("\"\"\"\n\n");
 	}
 	
 	public void writeUserVariable(UserProject p, UserVariable v, BufferedWriter writer, int indentationLevel) throws IOException{
