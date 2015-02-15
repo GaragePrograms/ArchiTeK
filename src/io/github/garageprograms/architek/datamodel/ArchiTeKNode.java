@@ -1,6 +1,6 @@
 package io.github.garageprograms.architek.datamodel;
 
-import java.awt.event.*;
+import java.awt.Graphics2D;
 
 public abstract class ArchiTeKNode {
 	public String name = "";
@@ -13,8 +13,8 @@ public abstract class ArchiTeKNode {
 		x = y = 0;
 	}
 	
-	public void render(){};
-	
+	public void draw(Graphics2D g2d) { }
+
 	public boolean canApplyProperty(Property p){
 		return false;
 	}

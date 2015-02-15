@@ -5,6 +5,7 @@
 package io.github.garageprograms.architek;
 
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 import io.github.garageprograms.architek.datamodel.*;
@@ -15,7 +16,7 @@ import io.github.garageprograms.architek.datamodel.*;
  * @author Nicolás A. Ortega
  * @version 15.02.14
  */
-public class DrawingPanel extends JPanel {
+public class DrawingPanel extends JPanel implements MouseListener {
 	private UserProject currentProject;
 	private Graphics2D g2d;
 
@@ -26,6 +27,7 @@ public class DrawingPanel extends JPanel {
 		setFocusable(true);
 		currentProject = new UserProject(name, "Comments.");
 		repaint();
+		addMouseListener(this);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -45,6 +47,12 @@ public class DrawingPanel extends JPanel {
 		currentProject.files.add(new UserFile(name, comment));
 		repaint();
 	}
+
+	public void mouseClicked(MouseEvent me) { }
+	public void mouseEntered(MouseEvent me) { }
+	public void mouseExited(MouseEvent me) { }
+	public void mousePressed(MouseEvent me) { }
+	public void mouseReleased(MouseEvent me) { }
 
 	// Getter methods:
 	public UserProject getCurrentProject() { return currentProject; }

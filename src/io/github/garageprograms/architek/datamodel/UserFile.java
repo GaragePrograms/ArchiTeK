@@ -2,13 +2,14 @@ package io.github.garageprograms.architek.datamodel;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class UserFile extends SerializableArchiTeKNode{
+public class UserFile extends SerializableArchiTeKNode {
 	public UserFile(String name, String comment) {
 		super(name, comment);
 	}
