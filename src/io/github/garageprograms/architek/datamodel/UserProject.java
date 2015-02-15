@@ -66,6 +66,7 @@ public class UserProject extends SerializableArchiTeKNode {
 	}
 	
 	public String referencePath = ""; //TODO: Setup
+	public UserClass unsetType = new UnsetType("", "");
 	
 	public void save(String filename){};
 	public void load(String filename){};
@@ -113,6 +114,9 @@ public class UserProject extends SerializableArchiTeKNode {
 	}
 	
 	public UserClass getClassByLookup(String lookupID){
+		if (lookupID.equals("")){
+			return unsetType;
+		}
 		//System.out.println("====================================");
 		//System.out.println("LUID: "+lookupID);
 		//System.out.println("REFZ: "+this.name);

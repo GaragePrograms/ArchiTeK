@@ -113,7 +113,16 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 		repaint();
 		if (this.needsHackUpdate){
 			this.needsHackUpdate=false;
-			this.updateFrame();
+			for (Component c : this.getComponents()){
+				c.repaint();
+				this.updateFrame();
+			}
+			for (ArchiTeKNode n : this.currentProject.files){
+//				n.isBeingDragged=true;
+//				MouseEvent tme = new MouseEvent(this, 1, 1, 1, 1, 1, 1, false);
+//				n.mouseDragged(tme);
+//				n.isBeingDragged=false;
+			}
 		}
 	}
 	public void mouseMoved(MouseEvent me) {
@@ -122,7 +131,16 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 		}
 		if (this.needsHackUpdate){
 			this.needsHackUpdate=false;
-			this.updateFrame();
+			for (Component c : this.getComponents()){
+				c.repaint();
+				this.updateFrame();
+			}
+			for (ArchiTeKNode n : this.currentProject.files){
+//				n.isBeingDragged=true;
+//				MouseEvent tme = new MouseEvent(this, 1, 1, 1, 1, 1, 1, false);
+//				n.mouseDragged(tme);
+//				n.isBeingDragged=false;
+			}
 		}
 	}
 

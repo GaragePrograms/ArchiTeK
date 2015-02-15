@@ -21,8 +21,9 @@ public abstract class ArchiTeKNode extends JLabel {
 	public String comment = "";
 	public JButton editButton = new JButton("Edit");
 	public JButton removeButton = new JButton("Remove");
-	public int x = 0;
-	public int y = 0;
+	public int x = (int) 0;
+	public int y = (int) 0;
+	public boolean isNew = true;
 
 	public boolean remove = false;
 
@@ -49,6 +50,8 @@ public abstract class ArchiTeKNode extends JLabel {
 			}
 		});
 	}
+	
+	public ArchiTeKNode parent;
 
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.WHITE);
@@ -110,6 +113,13 @@ public abstract class ArchiTeKNode extends JLabel {
 		}
 		this.lastMouseX=me.getX();
 		this.lastMouseY=me.getY();
+//		if (isNew){
+//			if (parent!=null){
+//				this.x=this.parent.x+50;
+//				this.y=this.parent.y+50;
+//			}
+//			isNew=false;
+//		}
 	}
 	
 	public void mouseReleased(MouseEvent me) {

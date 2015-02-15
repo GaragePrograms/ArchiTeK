@@ -64,6 +64,7 @@ public class ArchiTeK {
 		fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
 		fileMenu.add(newProject);
+		fileMenu.add(newProjectNL);
 		fileMenu.addSeparator();
 		fileMenu.add(saveProject);
 		fileMenu.add(loadProject);
@@ -97,6 +98,12 @@ public class ArchiTeK {
 //			
 //			panel.updateFrame();
 			new SelectLanguageFrame();
+		}
+	};
+	private Action newProjectNL = new AbstractAction("New Project [NoPlugin]") {
+		public void actionPerformed(ActionEvent ae) {
+			panel.currentProject = new UserProject("Untitled", "Untitled");
+			panel.updateFrame();
 		}
 	};
 	
