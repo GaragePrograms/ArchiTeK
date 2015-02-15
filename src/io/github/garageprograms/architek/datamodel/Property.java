@@ -4,6 +4,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Property extends SerializableArchiTeKNode{
+	public Property(String name, String comment) {
+		super(name, comment);
+	}
+
 	String fullyQualifiedID = "DefaultProperty";
 	
 	public boolean canBeAppliedToClass(UserClass c){

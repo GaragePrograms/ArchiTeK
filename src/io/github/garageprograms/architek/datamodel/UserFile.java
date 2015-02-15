@@ -6,6 +6,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class UserFile extends SerializableArchiTeKNode{
+	public UserFile(String name, String comment) {
+		super(name, comment);
+	}
+
 	public ArrayList<UserClass> encapsulatedClasses = new ArrayList<UserClass>();
 	public ArrayList<UserFunction> encapsulatedFunctions = new ArrayList<UserFunction>();
 	public ArrayList<UserVariable> encapsulatedVariables = new ArrayList<UserVariable>();

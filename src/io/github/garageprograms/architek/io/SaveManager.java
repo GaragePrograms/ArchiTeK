@@ -1,5 +1,8 @@
 package io.github.garageprograms.architek.io;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -10,6 +13,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 import io.github.garageprograms.architek.datamodel.UserProject;
 
@@ -24,15 +29,32 @@ public class SaveManager {
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(doc);
-			//StreamResult result = new StreamResult(new File(filename));
+			StreamResult result = new StreamResult(new File(filename));
 	 
 			// Output to console for testing
-			StreamResult result = new StreamResult(System.out);
+			//StreamResult result = new StreamResult(System.out);
 	 
 			transformer.transform(source, result);
 		} catch (ParserConfigurationException | TransformerException e) {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static UserProject loadProject(String filename){
+		try {
+			Document doc;
+			File fXmlFile = new File(filename);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			doc = dBuilder.parse(fXmlFile);
+			doc.getDocumentElement().normalize();
+			Element root = doc.getDocumentElement();
+			return new UserProject(root);
+		} catch (SAXException | IOException | ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+	 
+		return null;
 	}
 }
