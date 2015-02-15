@@ -28,6 +28,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 		this.frame = frame;
 		setFocusable(true);
 		currentProject = new UserProject(name, "Comments.");
+		currentProject.hide();
 		setLayout(new FlowLayout());
 		repaint();
 		addMouseListener(this);
@@ -47,9 +48,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 
 	public void addFile(String name, String comment) {
-		UserFile newFile = new UserFile(name, comment);
-		currentProject.files.add(newFile);
-		add(newFile);
+		add(currentProject.addFile(new UserFile(name, comment)));
 		this.frame.pack();
 		repaint();
 	}

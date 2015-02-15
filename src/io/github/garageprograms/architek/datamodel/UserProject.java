@@ -51,9 +51,10 @@ public class UserProject extends SerializableArchiTeKNode {
 	public void save(String filename){};
 	public void load(String filename){};
 	
-	public void addFile(UserFile f){
+	public UserFile addFile(UserFile f){
 		this.files.add(f);
 		f.parent=this;
+		return f;
 	}
 	
 	public Element saveReferenceToXML(Document doc){

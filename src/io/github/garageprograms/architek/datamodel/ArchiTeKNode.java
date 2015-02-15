@@ -11,8 +11,6 @@ public abstract class ArchiTeKNode extends JLabel {
 		this.name=name;
 		this.comment=comment;
 		setLocation(0, 10);
-		this.setText(name);
-		System.out.println("Creating a ArchiTeKNode (impl JLabel): "+this.getText());
 	}
 	
 	public boolean canApplyProperty(Property p){
