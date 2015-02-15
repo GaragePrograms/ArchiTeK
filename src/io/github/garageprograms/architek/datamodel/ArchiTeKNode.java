@@ -105,10 +105,8 @@ public abstract class ArchiTeKNode extends JLabel {
 	}
 
 	public void mouseDragged(MouseEvent me) {
-		
 		if (this.isBeingDragged){
 			this.changeLocationBy(me.getX()-this.lastMouseX, me.getY()-lastMouseY);
-			
 		}
 		this.lastMouseX=me.getX();
 		this.lastMouseY=me.getY();
