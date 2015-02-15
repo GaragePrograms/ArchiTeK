@@ -29,11 +29,11 @@ public abstract class ArchiTeKNode extends JLabel {
 		setLocation(0, 10);
 		final ArchiTeKNode abc=this;
 		editButton.setBorder(null);
-		 editButton.addActionListener(new ActionListener() {
-	         public void actionPerformed(ActionEvent e) {
-	            new OptionsFrame(abc, true);
-	         }          
-	      });
+		editButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new OptionsFrame(abc, true);
+			}
+		});
 	}
 
 	public void draw(Graphics2D g2d) {
