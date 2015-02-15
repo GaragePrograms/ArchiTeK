@@ -129,7 +129,7 @@ public class ArchiTeK {
 	private Action addFile = new AbstractAction("Add File") {
 		public void actionPerformed(ActionEvent ae) {
 			if(panel != null && panel.getCurrentProject() != null) {
-				panel.addFile("Untitledasdsahdusad", "Untitled");
+				panel.addFile("Untitled", "Untitled");
 			}
 		}
 	};
