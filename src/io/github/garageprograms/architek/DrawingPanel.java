@@ -15,7 +15,7 @@ import io.github.garageprograms.architek.datamodel.*;
  * @author Nicolás A. Ortega
  * @version 15.02.14
  */
-public class DrawingPanel extends JPanel/* implements Runnable*/ {
+public class DrawingPanel extends JPanel {
 	private UserProject currentProject;
 	private Graphics2D g2d;
 
