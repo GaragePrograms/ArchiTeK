@@ -39,6 +39,7 @@ public class NewNodeFrame extends JFrame {
 		    		of.node.addClass(new UserClass("New", ""));
 		    		ArchiTeK.getInstance().panel.updateFrame();
 		    		of.dispose();
+		    		ArchiTeK.getInstance().panel.needsHackUpdate=true;
 		    	}
 		});
 		p.add(classButton);
@@ -48,6 +49,7 @@ public class NewNodeFrame extends JFrame {
 				of.node.addFunction(new UserFunction("New", ""));
 				ArchiTeK.getInstance().panel.updateFrame();
 				of.dispose();
+				ArchiTeK.getInstance().panel.needsHackUpdate=true;
 			}
 		});
 		p.add(functionButton);
@@ -57,6 +59,7 @@ public class NewNodeFrame extends JFrame {
 				of.node.addVariable(new UserVariable("New", ""));
 				ArchiTeK.getInstance().panel.updateFrame();
 				of.dispose();
+				ArchiTeK.getInstance().panel.needsHackUpdate=true;
 			}
 		});
 		p.add(variableButton);

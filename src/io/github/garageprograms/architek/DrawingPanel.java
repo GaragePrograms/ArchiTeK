@@ -23,6 +23,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	private JFrame frame;
 
 	private ArchiTeKNode node;
+	public boolean needsHackUpdate;
 
 	public DrawingPanel(JFrame frame, UserProject p) {
 		this.frame = frame;
@@ -110,10 +111,18 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 			f.mouseDragged(me);
 		}
 		repaint();
+		if (this.needsHackUpdate){
+			this.needsHackUpdate=false;
+			this.updateFrame();
+		}
 	}
 	public void mouseMoved(MouseEvent me) {
 		for (UserFile f : this.currentProject.files){
 			f.mouseDragged(me);
+		}
+		if (this.needsHackUpdate){
+			this.needsHackUpdate=false;
+			this.updateFrame();
 		}
 	}
 

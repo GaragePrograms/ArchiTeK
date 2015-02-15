@@ -56,6 +56,7 @@ public class OptionsFrame extends JFrame {
 		        		of.node.setNameAndRefresh(of.nameBox.getText());
 	        		}
 				of.dispose();
+				ArchiTeK.getInstance().panel.needsHackUpdate=true;
 	        	}
 		});
 		mainPanel.add(exitButton);
