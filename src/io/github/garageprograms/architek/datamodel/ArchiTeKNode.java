@@ -10,7 +10,8 @@ public abstract class ArchiTeKNode extends JLabel {
 		super(name);
 		this.name=name;
 		this.comment=comment;
-		setLocation(0, 10);
+		setLocation(0, -1000);
+		this.hide();
 	}
 	
 	public boolean canApplyProperty(Property p){
