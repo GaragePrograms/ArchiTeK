@@ -31,7 +31,8 @@ public class ArchiTeK {
 		frame.setSize((int)tk.getScreenSize().getWidth(), (int)tk.getScreenSize().getHeight());
 
 		// Create the drawing panel
-		panel = new DrawingPanel();
+		panel = new DrawingPanel(frame);
+		frame.add(panel);
 
 		// Create menu bar
 		menuBar = new JMenuBar();
@@ -60,6 +61,7 @@ public class ArchiTeK {
 
 	private Action quit = new AbstractAction("Quit") {
 		public void actionPerformed(ActionEvent ae) {
+			panel.stop();
 			System.exit(0);
 		}
 	};
