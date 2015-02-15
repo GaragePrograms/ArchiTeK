@@ -13,7 +13,8 @@ public class UserFile extends SerializableArchiTeKNode{
 	
 	public void addClass(UserClass c){
 		this.encapsulatedClasses.add(c);
-		c.parent = this;
+		c.parent = this.parent;
+		c.parentFile = this;
 	}
 	
 	public void addFunction(UserFunction f){
