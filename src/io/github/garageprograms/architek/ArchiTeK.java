@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 import io.github.garageprograms.architek.datamodel.UserFile;
+import io.github.garageprograms.architek.datamodel.UserProject;
 import io.github.garageprograms.architek.plugins.PluginManager;
 
 /**
@@ -27,7 +28,7 @@ public class ArchiTeK {
 	      return instance;
 	   }
 	   
-	private JFrame frame;
+	public JFrame frame;
 	private JMenuBar menuBar;
 	private JMenu fileMenu, editMenu, aboutMenu;
 
@@ -44,7 +45,7 @@ public class ArchiTeK {
 		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 		// Create the drawing panel
-		panel = new DrawingPanel(frame, "UNTITLED_PROJECT");
+		panel = new DrawingPanel(frame, new UserProject("Untitled New", "New project."));
 		frame.add(panel);
 
 		// Create menu bar
@@ -73,7 +74,8 @@ public class ArchiTeK {
 
 	private Action newProject = new AbstractAction("New Project") {
 		public void actionPerformed(ActionEvent ae) {
-			//panel.reset();
+			panel.currentProject = new UserProject("Untitled New", "New project.");
+			panel.updateFrame();
 		}
 	};
 

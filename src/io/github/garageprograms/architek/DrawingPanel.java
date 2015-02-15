@@ -17,17 +17,17 @@ import io.github.garageprograms.architek.datamodel.*;
  * @version 15.02.14
  */
 public class DrawingPanel extends JPanel implements MouseListener, MouseMotionListener {
-	private UserProject currentProject;
+	public UserProject currentProject;
 	private Graphics2D g2d;
 
 	private JFrame frame;
 
 	private ArchiTeKNode node;
 
-	public DrawingPanel(JFrame frame, String name) {
+	public DrawingPanel(JFrame frame, UserProject p) {
 		this.frame = frame;
 		setFocusable(true);
-		currentProject = new UserProject(name, "Comments.");
+		currentProject = p;
 		setLayout(new FlowLayout());
 		repaint();
 		addMouseListener(this);
@@ -65,7 +65,8 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 		this.removeAll();
 		this.addAllFilesAsJLabels();
 		frame.setResizable(false);
-		this.frame.pack();
+		frame.revalidate();
+		frame.repaint();
 		frame.setResizable(true);
 		repaint();
 	}
