@@ -62,7 +62,7 @@ public class ArchiTeK {
 
 	private Action quit = new AbstractAction("Quit") {
 		public void actionPerformed(ActionEvent ae) {
-			panel.stop();
+//			panel.stop();
 			System.exit(0);
 		}
 	};

@@ -7,3 +7,6 @@ bin/
 # Ignore Eclipse files
 .classpath
 .project
+
+# Ignore ArchiTeK files
+.ark

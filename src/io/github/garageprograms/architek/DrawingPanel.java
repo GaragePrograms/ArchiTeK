@@ -15,9 +15,9 @@ import io.github.garageprograms.architek.datamodel.*;
  * @author Nicolás A. Ortega
  * @version 15.02.14
  */
-public class DrawingPanel extends JPanel implements Runnable {
+public class DrawingPanel extends JPanel/* implements Runnable*/ {
 	private UserProject currentProject;
-	private Thread loop;
+//	private Thread loop;
 	private Graphics2D g2d;
 
 	private JFrame frame;
@@ -25,11 +25,12 @@ public class DrawingPanel extends JPanel implements Runnable {
 	public DrawingPanel(JFrame frame) {
 		this.frame = frame;
 		setFocusable(true);
-		loop = new Thread(this);
-		loop.start();
+//		loop = new Thread(this);
+//		loop.start();
+		repaint();
 	}
 
-	public void stop() { loop = null; }
+//	public void stop() { loop = null; }
 
 	public void createProject(String name) {
 		currentProject = new UserProject(name, "Untitled");
@@ -43,7 +44,7 @@ public class DrawingPanel extends JPanel implements Runnable {
 		g2d.fillRect(0, 0, frame.getContentPane().getSize().width, frame.getContentPane().getSize().height);
 	}
 
-	public void run() {
+	/*public void run() {
 		Thread t = Thread.currentThread();
 
 		while(t == loop) {
@@ -54,5 +55,5 @@ public class DrawingPanel extends JPanel implements Runnable {
 				ie.printStackTrace();
 			}
 		}
-	}
+	}*/
 }
