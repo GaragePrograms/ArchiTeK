@@ -28,7 +28,6 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 		this.frame = frame;
 		setFocusable(true);
 		currentProject = p;
-		setLayout(new FlowLayout());
 		repaint();
 		addMouseListener(this);
 		addMouseMotionListener(this);
