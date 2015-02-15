@@ -34,7 +34,7 @@ public class ArchiTeK {
 		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 		// Create the drawing panel
-		panel = new DrawingPanel(frame);
+		panel = new DrawingPanel(frame, "Untitled");
 		frame.add(panel);
 
 		// Create menu bar
@@ -63,7 +63,7 @@ public class ArchiTeK {
 
 	private Action newProject = new AbstractAction("New Project") {
 		public void actionPerformed(ActionEvent ae) {
-			panel.createProject("Untitled");
+			//panel.reset();
 		}
 	};
 
@@ -75,7 +75,9 @@ public class ArchiTeK {
 
 	private Action addFile = new AbstractAction("Add File") {
 		public void actionPerformed(ActionEvent ae) {
-			panel.getCurrentProject().files.add(new UserFile("Untitled", "Untitled"));
+			if(panel != null && panel.getCurrentProject() != null) {
+				panel.addFile("Untitled", "Untitled");
+			}
 		}
 	};
 

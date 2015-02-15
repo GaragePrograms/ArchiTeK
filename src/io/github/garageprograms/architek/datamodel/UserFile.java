@@ -1,5 +1,7 @@
 package io.github.garageprograms.architek.datamodel;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
@@ -7,8 +9,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class UserFile extends SerializableArchiTeKNode{
+	int x, y;
+
 	public UserFile(String name, String comment) {
 		super(name, comment);
+		x = 0;
+		y = 0;
 	}
 	
 	public UserFile(Element elem, ArchiTeKNode directParent, UserProject project){
@@ -40,6 +46,11 @@ public class UserFile extends SerializableArchiTeKNode{
 	public ArrayList<UserFunction> encapsulatedFunctions = new ArrayList<UserFunction>();
 	public ArrayList<UserVariable> encapsulatedVariables = new ArrayList<UserVariable>();
 	public UserProject parent = null;
+
+	public void draw(Graphics2D g2d) {
+		g2d.setColor(Color.BLACK);
+		g2d.drawString(name, x, y);
+	}
 	
 	public void addClass(UserClass c){
 		this.encapsulatedClasses.add(c);
