@@ -34,11 +34,9 @@ public class UserClass extends UserFile{
 	public ArrayList<UserClass> parentClasses = new ArrayList<UserClass>();
 	public UserFile parent;
 	
-	public boolean canApplyProperty(Property propertyList){
-		for (Property p : this.properties){
-			if (!p.canBeAppliedToClass(this)){
-				return false;
-			}
+	public boolean canApplyProperty(Property p){
+		if (!p.canBeAppliedToClass(this)){
+			return false;
 		}
 		return true;
 	}

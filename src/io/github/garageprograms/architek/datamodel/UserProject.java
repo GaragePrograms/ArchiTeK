@@ -64,19 +64,19 @@ public class UserProject extends SerializableArchiTeKNode {
 	}
 	
 	public UserClass getClassByLookup(String lookupID){
+		//System.out.println("LUID: "+lookupID);
 		for (UserFile f : this.files){
-			if (f instanceof UserClass){
-				UserClass c = (UserClass)f;
+			for (UserClass c : f.encapsulatedClasses){
+				//c.getLookupID();
+				//System.out.println("====>"+c.getLookupID());
 				if (c.getLookupID().equals(lookupID)){
 					return c;
 				}
-			}else{
-				for (UserClass c : f.encapsulatedClasses){
-					c.getLookupID();
-					if (c.getLookupID().equals(lookupID)){
-						return c;
-					}
-				}
+			}
+		}
+		for (UserProject p : this.imports){
+			if (p.getClassByLookup(lookupID)!=null){
+				return p.getClassByLookup(lookupID);
 			}
 		}
 		return null;

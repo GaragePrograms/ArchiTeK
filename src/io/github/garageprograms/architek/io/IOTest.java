@@ -20,7 +20,7 @@ public class IOTest {
 		
 		UserClass array = new UserClass("Array", "An array");
 		UserFunction add = new UserFunction("append", "Append to the array");
-		add.parameters.put("(positional 0)", any);
+		add.parameters.put("object", any);
 		array.addFunction(add);
 		sys.addClass(array);
 		

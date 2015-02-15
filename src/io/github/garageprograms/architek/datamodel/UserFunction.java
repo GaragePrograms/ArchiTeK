@@ -28,20 +28,21 @@ public class UserFunction extends SerializableArchiTeKNode{
 		NodeList parametersNode = elem.getElementsByTagName("parameters").item(0).getChildNodes();
 		for (int temp = 0; temp < parametersNode.getLength(); temp++) {
 			Element parameterNode = (Element)parametersNode.item(temp);
+			System.out.println("Name => "+parameterNode.getAttribute("name"));
+			System.out.println("======> "+parameterNode.getAttribute("type"));
+			System.out.println("======> "+project.getClassByLookup(parameterNode.getAttribute("type")));
 			this.parameters.put(parameterNode.getAttribute("name"), project.getClassByLookup(parameterNode.getAttribute("type")));
 		}
 	}
 
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public HashMap<String, UserClass> parameters = new HashMap<String, UserClass>();
-	public UserClass returnType = PluginManager.getInstance().language.voidType;
+	public UserClass returnType = null;
 	public UserFile parent = null;
 	
-	public boolean canApplyProperty(Property propertyList){
-		for (Property p : this.properties){
-			if (!p.canBeAppliedToFunction(this)){
-				return false;
-			}
+	public boolean canApplyProperty(Property p){
+		if (!p.canBeAppliedToFunction(this)){
+			return false;
 		}
 		return true;
 	}
@@ -49,7 +50,11 @@ public class UserFunction extends SerializableArchiTeKNode{
 	public Element saveToXML(Document doc){
 		Element node = doc.createElement("UserFunction");
 		node.appendChild(this.defaultSaveToXML(doc));
-		node.setAttribute("returnType", this.returnType.getLookupID());
+		if (this.returnType!=null){
+			node.setAttribute("returnType", this.returnType.getLookupID());
+		}else{
+			node.setAttribute("returnType", "__void__");
+		}
 		Element propertiesNode = doc.createElement("properties");
 		for (Property p : this.properties){
 			propertiesNode.appendChild(p.saveToXML(doc));

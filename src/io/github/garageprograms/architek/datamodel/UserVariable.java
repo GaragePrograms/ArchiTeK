@@ -29,11 +29,9 @@ public class UserVariable extends SerializableArchiTeKNode{
 		this.parent=(UserFile)directParent;
 	}
 	
-	public boolean canApplyProperty(Property propertyList){
-		for (Property p : this.properties){
-			if (!p.canBeAppliedToVariable(this)){
-				return false;
-			}
+	public boolean canApplyProperty(Property p){
+		if (!p.canBeAppliedToVariable(this)){
+			return false;
 		}
 		return true;
 	}
