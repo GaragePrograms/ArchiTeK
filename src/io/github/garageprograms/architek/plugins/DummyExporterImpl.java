@@ -3,5 +3,5 @@ package io.github.garageprograms.architek.plugins;
 import io.github.garageprograms.architek.datamodel.UserProject;
 
 public class DummyExporterImpl implements Exporter {
-	public void exportToDir(String dir, UserProject proj) {}
+	public void exportToDir(String dir, UserProject proj) {System.out.println("Exporting using DummyImpl :/...");}
 }

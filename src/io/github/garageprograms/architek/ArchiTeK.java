@@ -69,6 +69,8 @@ public class ArchiTeK {
 		fileMenu.add(loadProject);
 		fileMenu.add(loadProjectTest);
 		fileMenu.addSeparator();
+		fileMenu.add(exportProject);
+		fileMenu.addSeparator();
 		fileMenu.add(quit);
 
 		// Create edit menu
@@ -95,6 +97,22 @@ public class ArchiTeK {
 //			
 //			panel.updateFrame();
 			new SelectLanguageFrame();
+		}
+	};
+	
+	private Action exportProject = new AbstractAction("Export Project") {
+		public void actionPerformed(ActionEvent ae) {
+			final JFileChooser fc = new JFileChooser();
+			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int returnVal = fc.showSaveDialog(ArchiTeK.getInstance().frame);
+
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fc.getSelectedFile();
+	            PluginManager.getInstance().language.getExporter().exportToDir(file.getAbsolutePath(), panel.currentProject);
+	        } else {
+	            System.out.println("No file selected");
+	        }
+			
 		}
 	};
 	
