@@ -1,9 +1,5 @@
 package io.github.garageprograms.architek.datamodel;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.event.*;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
