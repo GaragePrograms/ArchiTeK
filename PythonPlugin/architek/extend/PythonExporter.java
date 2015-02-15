@@ -4,9 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import io.github.garageprograms.architek.datamodel.UserClass;
 import io.github.garageprograms.architek.datamodel.UserFile;
 import io.github.garageprograms.architek.datamodel.UserFunction;
 import io.github.garageprograms.architek.datamodel.UserProject;
@@ -57,14 +56,36 @@ public class PythonExporter implements Exporter {
 	public void writeUserFunction(UserProject p, UserFunction f, BufferedWriter writer, int indentationLevel) throws IOException{
 		log("Writing function "+f.name+" at indent "+indentationLevel);
 		this.insertIndentation(writer, indentationLevel);writer.write("def ");writer.write(f.name);writer.write("():\n");
-		this.insertIndentation(writer, indentationLevel+1);writer.write("pass \"\"\"");writer.write(f.comment);writer.write("\"\"\"\n\n");
+		this.insertIndentation(writer, indentationLevel+1);writer.write("\"\"\"");writer.write(f.comment);writer.write("\"\"\"\n");
+		this.insertIndentation(writer, indentationLevel+1);writer.write("pass\n\n");
+		
 	}
 	
 	public void writeUserVariable(UserProject p, UserVariable v, BufferedWriter writer, int indentationLevel) throws IOException{
 		log("Writing var "+v.name+" at indent "+indentationLevel);
+		this.insertIndentation(writer, indentationLevel);writer.write("\"\"\""+v.comment+"\"\"\"\n");
 		this.insertIndentation(writer, indentationLevel);writer.write(v.name+" = None #Should be a(n) ");
-		  writer.write(v.type.name);writer.write(" #TODO: Fill this in\n");
-		this.insertIndentation(writer, indentationLevel);writer.write("  \"\"\""+v.comment+"\"\"\"\n\n");
+		  writer.write(v.type.name);writer.write(" #TODO: Fill this in\n\n");
+		
+	}
+	
+	public void writeUserClass(UserProject p, UserClass c, BufferedWriter writer, int indentationLevel) throws IOException{
+		log("Writing cls "+c.name+" at indent "+indentationLevel);
+		this.insertIndentation(writer, indentationLevel);writer.write("class "+c.name+":");
+		for (UserClass cls : c.encapsulatedClasses){
+			this.writeUserClass(p, cls, writer, indentationLevel+1);
+		}
+		writer.write("\n\n");
+		for (UserVariable var : c.encapsulatedVariables){
+			this.writeUserVariable(p, var, writer, indentationLevel+1);
+		}
+		writer.write("\n\n");
+		for (UserFunction func : c.encapsulatedFunctions){
+			this.writeUserFunction(p, func, writer, indentationLevel+1);
+		}
+		
+		
+		
 	}
 	
 	public void writeUserFile(UserProject p, UserFile f, File root) throws IOException{
@@ -91,11 +112,16 @@ public class PythonExporter implements Exporter {
 		ensureDirectoryExists(new File(folderPath));
 		BufferedWriter writer = getWriter(new File(filePath));
 		writer.write("\"\"\""+f.comment+"\"\"\"\n\n");
-		for (UserFunction func : f.encapsulatedFunctions){
-			this.writeUserFunction(p, func, writer, 0);
+		for (UserClass cls : f.encapsulatedClasses){
+			this.writeUserClass(p, cls, writer, 0);
 		}
+		writer.write("\n\n");
 		for (UserVariable var : f.encapsulatedVariables){
 			this.writeUserVariable(p, var, writer, 0);
+		}
+		writer.write("\n\n");
+		for (UserFunction func : f.encapsulatedFunctions){
+			this.writeUserFunction(p, func, writer, 0);
 		}
 		writer.close();
 	}
