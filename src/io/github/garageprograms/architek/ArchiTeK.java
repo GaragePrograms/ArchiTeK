@@ -28,7 +28,8 @@ public class ArchiTeK {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Set size to fullscreen.
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		frame.setSize((int)tk.getScreenSize().getWidth(), (int)tk.getScreenSize().getHeight());
+		frame.setSize(800, 600);
+		frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
 		// Create the drawing panel
 		panel = new DrawingPanel(frame);
