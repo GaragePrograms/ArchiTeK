@@ -2,6 +2,8 @@ package io.github.garageprograms.architek.datamodel;
 
 import io.github.garageprograms.architek.plugins.PluginManager;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,6 +14,11 @@ import org.w3c.dom.NodeList;
 public class UserFunction extends SerializableArchiTeKNode{
 	public UserFunction(String name, String comment) {
 		super(name, comment);
+	}
+	
+	public void draw(Graphics2D g2d){
+		g2d.setColor(Color.RED);
+		g2d.draw(getBounds());
 	}
 	
 	public UserFunction(Element elem, ArchiTeKNode directParent, UserProject project){

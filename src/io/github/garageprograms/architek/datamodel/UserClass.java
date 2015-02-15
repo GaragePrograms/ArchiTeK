@@ -2,6 +2,8 @@ package io.github.garageprograms.architek.datamodel;
 
 import io.github.garageprograms.architek.plugins.PluginManager;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
@@ -41,6 +43,26 @@ public class UserClass extends UserFile{
 		return true;
 	}
 	
+	public void draw(Graphics2D g2d){
+		g2d.setColor(Color.BLUE);
+		g2d.draw(getBounds());
+		for (UserClass c : this.encapsulatedClasses){
+			c.draw(g2d);
+			g2d.setColor(Color.BLUE);
+			g2d.drawLine(this.x+this.getBounds().width, this.y+this.getBounds().height, c.x, c.y);
+		}
+		for (UserFunction c : this.encapsulatedFunctions){
+			c.draw(g2d);
+			g2d.setColor(Color.RED);
+			g2d.drawLine(this.x+this.getBounds().width, this.y+this.getBounds().height, c.x, c.y);
+		}
+		for (UserVariable c : this.encapsulatedVariables){
+			c.draw(g2d);
+			g2d.setColor(Color.GREEN);
+			g2d.drawLine(this.x+this.getBounds().width, this.y+this.getBounds().height, c.x, c.y);
+		}
+	}
+	
 	public void render() {}
 	
 	public Element saveToXML(Document doc){
@@ -53,7 +75,9 @@ public class UserClass extends UserFile{
 		
 		Element parentsNode = doc.createElement("parentClasses");
 		for (UserClass c : this.parentClasses){
-			parentsNode.appendChild(c.saveToXML(doc));
+			Element e = doc.createElement("parentClass");
+			e.setAttribute("lookupID", c.getLookupID());
+			parentsNode.appendChild(e);
 		}
 		
 		node.appendChild(propertiesNode);

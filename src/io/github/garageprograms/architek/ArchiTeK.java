@@ -23,10 +23,12 @@ import io.github.garageprograms.architek.plugins.PluginManager;
  * @version 15.02.14
  */
 public class ArchiTeK {
+	public static boolean ready = false;
 	private static ArchiTeK instance = null;
 	public static ArchiTeK getInstance() {
 		if(instance == null) {
 			instance = new ArchiTeK();
+			ready = true;
 		}
 		return instance;
 	}
@@ -34,12 +36,14 @@ public class ArchiTeK {
 	public JFrame frame;
 	private JMenuBar menuBar;
 	private JMenu fileMenu, editMenu, aboutMenu;
+	public String version = "ArchiTeK 0.1";
 
 	public DrawingPanel panel;
 
 	private ArchiTeK() {
+		
 		// Create frame with caption
-		frame = new JFrame("ArchiTeK");
+		frame = new JFrame(version);
 		// Close when 'X' button is pressed
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Set size to fullscreen.
@@ -49,6 +53,7 @@ public class ArchiTeK {
 
 		// Create the drawing panel
 		panel = new DrawingPanel(frame, new UserProject("Untitled New", "New project."));
+		
 		frame.add(panel);
 
 		// Create menu bar
@@ -70,6 +75,9 @@ public class ArchiTeK {
 		editMenu = new JMenu("Edit");
 		menuBar.add(editMenu);
 		editMenu.add(addFile);
+		editMenu.addSeparator();
+		editMenu.add(addImportFile);
+		editMenu.add(addImportLib);
 
 		// Create about menu
 		aboutMenu = new JMenu("About");
@@ -81,8 +89,39 @@ public class ArchiTeK {
 
 	private Action newProject = new AbstractAction("New Project") {
 		public void actionPerformed(ActionEvent ae) {
-			panel.currentProject = new UserProject("Untitled New", "New project.");
-			panel.updateFrame();
+			if (!PluginManager.getInstance().hasStarted) PluginManager.getInstance().loadAllPlugins();
+//			PluginManager.getInstance().installLanguage("pyplugin_27_01");
+//			panel.currentProject = new UserProject("Untitled New", "New project.");
+//			
+//			panel.updateFrame();
+			new SelectLanguageFrame();
+		}
+	};
+	
+	private Action addImportFile = new AbstractAction("Link Project.ark") {
+		public void actionPerformed(ActionEvent ae) {
+			final JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(ArchiTeK.getInstance().frame);
+
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fc.getSelectedFile();
+	            try {
+					ArchiTeK.getInstance().panel.currentProject.addImport(file.getAbsolutePath());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					 System.out.println("Bad file");
+					e.printStackTrace();
+				}
+	        } else {
+	            System.out.println("No file selected");
+	        }
+		}
+	};
+	
+	private Action addImportLib = new AbstractAction("Link Project Lib") {
+		public void actionPerformed(ActionEvent ae) {
+			String s = (String)JOptionPane.showInputDialog(null, "NOTE: Must be on ArchiTeK Path to be imported.");
+			ArchiTeK.getInstance().panel.currentProject.installLibrary(s);
 		}
 	};
 	
@@ -152,7 +191,7 @@ public class ArchiTeK {
 			new Window("Copyright",
 				"Program structure flow chart software.\n" +
 				"Copyright (C) 2015 GaragePrograms\n\n" +
-			        "This program is free software: you can redistribute it and/or modify\n" +
+			    "This program is free software: you can redistribute it and/or modify\n" +
 				"it under the terms of the GNU General Public License as published by\n" +
 				"the Free Software Foundation, either version 3 of the License, or\n" +
 				"(at your option) any later version.\n\n" +
@@ -161,7 +200,8 @@ public class ArchiTeK {
 				"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the\n" +
 				"GNU General Public License for more details.\n\n" +
 				"You should have received a copy of the GNU General Public License\n" +
-				"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n");
+				"along with this program.  If not, see <http://www.gnu.org/licenses/>.\n\n"+
+				"By Louis Goessling and Nicolás Ortega\n\n");
 		}
 	};
 

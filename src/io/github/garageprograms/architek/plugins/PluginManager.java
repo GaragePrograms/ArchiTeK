@@ -8,15 +8,19 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 
+import io.github.garageprograms.architek.ArchiTeK;
 import io.github.garageprograms.architek.datamodel.Property;
 import io.github.garageprograms.architek.datamodel.UserProject;
 
 public class PluginManager {
    private static PluginManager instance = null;
    private PluginManager() {}
+   public boolean hasStarted = false;
    public static PluginManager getInstance() {
       if(instance == null) {
          instance = new PluginManager();
+         instance.languages.add(new DummyProgrammingLanguageImpl());
+         instance.installLanguage("_default");
       }
       return instance;
    }
@@ -27,7 +31,7 @@ public class PluginManager {
 	public ArrayList<String> requredLibraries = new ArrayList<String>();
 	
 	public Property getProperty(String name){
-		for (Property p : this.language.properties){
+		for (Property p : this.language.getProperties()){
 			if (p.name==name){
 				return p;
 			}
@@ -37,7 +41,7 @@ public class PluginManager {
 	
 	public ProgrammingLanguage getLanguage(String uniqueID){
 		for (ProgrammingLanguage l : this.languages){
-			if (l.uniqueID.equals(uniqueID)){
+			if (l.getUniqueID().equals(uniqueID)){
 				return l;
 			}
 		}
@@ -60,6 +64,7 @@ public class PluginManager {
 		}catch(NullPointerException e){
 			System.out.println("Could not find local plugin path. Does '"+FilePaths.getLocalPluginPath()+"' exist?");
 		}
+		this.hasStarted=true;
 	}
 	
 	public void loadAllPluginsInDir(String libDir){
@@ -81,26 +86,27 @@ public class PluginManager {
 			urlList[0]=new File(libDir+"/"+file).toURI().toURL();
 			URLClassLoader child = new URLClassLoader (urlList, this.getClass().getClassLoader());
 			Class<?> classToLoad = Class.forName ("architek.extend.PackedPlugin", true, child);
-			Object pluginObj = classToLoad.newInstance();
+			Plugin plugin = (Plugin)classToLoad.newInstance();
+			System.out.println("-->Name: "+plugin.getName());
+			System.out.println("-->UUID: "+plugin.getUID());
+			plugin.install();
 			//System.out.println(pluginObj.getClass());
-			if (pluginObj.getClass().getGenericSuperclass() == Plugin.class){
-				System.out.println("-->Name: "+(String)pluginObj.getClass().getField("name").get(pluginObj));
-				System.out.println("-->Desc: "+(String)pluginObj.getClass().getField("description").get(pluginObj));
-				Method method = classToLoad.getDeclaredMethod ("install");
-				method.invoke(pluginObj);
-			}else{
-				System.out.println("architek.extend.PackedPlugin was not an instance of plugin...");
-			}
-		} catch (IllegalArgumentException | SecurityException | NoSuchFieldException
-				| ClassNotFoundException | InstantiationException
-				| IllegalAccessException | IOException | NoSuchMethodException | InvocationTargetException e) {
+//			if (pluginObj.getClass().getGenericSuperclass() == Plugin.class){
+//				System.out.println("-->Name: "+(String)pluginObj.getClass().getField("name").get(pluginObj));
+//				System.out.println("-->Desc: "+(String)pluginObj.getClass().getField("description").get(pluginObj));
+//				Method method = classToLoad.getDeclaredMethod ("install");
+//				method.invoke(pluginObj);
+//			}else{
+//				System.out.println("architek.extend.PackedPlugin was not an instance of plugin...");
+//			}
+		} catch (IllegalArgumentException | SecurityException | ClassNotFoundException | InstantiationException
+				| IllegalAccessException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public void onProjectStart(UserProject p){
-		for (String lib : this.requredLibraries){
-			p.installLibrary(lib);
-		}
+		this.language.install(p);
+		p.programmingLanguageUID=this.language.getUniqueID();
 	}
 }

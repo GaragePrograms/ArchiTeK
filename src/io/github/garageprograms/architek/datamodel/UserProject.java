@@ -16,6 +16,7 @@ public class UserProject extends SerializableArchiTeKNode {
 	public ArrayList<UserFile> files = new ArrayList<UserFile>();
 	public ArrayList<UserClass> protoClasses = new ArrayList<UserClass>();
 	public ArrayList<UserProject> imports = new ArrayList<UserProject>();
+	public String programmingLanguageUID = "";
 
 	public UserProject(String name, String comment) {
 		super(name, comment);
@@ -26,10 +27,17 @@ public class UserProject extends SerializableArchiTeKNode {
 		super("","");
 		this.defaultLoadFromXML(elem);
 		
+		this.programmingLanguageUID = elem.getAttribute("programmingLanguageUID");
+		
 		NodeList importsNode = elem.getElementsByTagName("imports").item(0).getChildNodes();
 		for (int temp = 0; temp < importsNode.getLength(); temp++) {
 			Element importNode = (Element)importsNode.item(temp);
-			this.imports.add(new UserProject(importNode));
+			try {
+				this.imports.add(SaveManager.loadProject(importNode.getAttribute("referencePath")));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		NodeList classStubs = elem.getElementsByTagName("UserClass");
@@ -47,7 +55,7 @@ public class UserProject extends SerializableArchiTeKNode {
 			this.addFile(new UserFile(fileNode, (ArchiTeKNode)this, this));
 		}
 		
-		
+		//PluginManager.getInstance().onProjectStart(this);
 	}
 	
 	public String referencePath = ""; //TODO: Setup
@@ -69,6 +77,8 @@ public class UserProject extends SerializableArchiTeKNode {
 
 	public Element saveToXML(Document doc) {
 		Element node = doc.createElement("UserProject");
+		node.setAttribute("programmingLanguageUID", this.programmingLanguageUID);
+		
 		node.appendChild(this.defaultSaveToXML(doc));
 		Element filesNode = doc.createElement("files");
 		for (UserFile f : this.files){
@@ -84,8 +94,21 @@ public class UserProject extends SerializableArchiTeKNode {
 		return node;
 	}
 	
+	public boolean isInUserLibraries(String lookupID){
+		for (UserFile f : this.files){
+			for (UserClass c : f.encapsulatedClasses){
+				if (c.getLookupID().equals(lookupID)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public UserClass getClassByLookup(String lookupID){
-		//System.out.println("LUID: "+lookupID);
+		System.out.println("====================================");
+		System.out.println("LUID: "+lookupID);
+		System.out.println("REFZ: "+this.name);
 		for (UserFile f : this.files){
 			for (UserClass c : f.encapsulatedClasses){
 				//c.getLookupID();
@@ -95,11 +118,16 @@ public class UserProject extends SerializableArchiTeKNode {
 				}
 			}
 		}
+		System.out.println("Not found locally predefined, proceeding to imports...");
+		System.out.println("At this time imports = "+this.imports);
 		for (UserProject p : this.imports){
+			System.out.println("Searching in imports for "+lookupID);
+			System.out.println("Result "+p.getClassByLookup(lookupID));
 			if (p.getClassByLookup(lookupID)!=null){
 				return p.getClassByLookup(lookupID);
 			}
 		}
+		System.out.println("Not found in referenced modules. Proceeding to predefs...");
 		for (UserClass c : this.protoClasses){
 			if (c.getLookupID().equals(lookupID)){
 				return c;
@@ -131,5 +159,6 @@ public class UserProject extends SerializableArchiTeKNode {
 	
 	public void addImport(String filename) throws FileNotFoundException{
 		this.imports.add(SaveManager.loadProject(filename));
+		System.out.println("I've installed "+this.imports.get(0).files.get(0).encapsulatedClasses.get(0).getLookupID());
 	}
 }

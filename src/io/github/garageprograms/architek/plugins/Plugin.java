@@ -1,7 +1,7 @@
 package io.github.garageprograms.architek.plugins;
 
-public abstract class Plugin {
-	public String name;
-	public String description;
+public interface Plugin {
+	public String getName();
+	public String getUID();
 	public abstract void install();
 }

@@ -43,6 +43,7 @@ public class SaveManager {
 	}
 	
 	public static UserProject loadProject(String filename) throws FileNotFoundException{
+		System.out.println("Loading "+filename);
 		try {
 			Document doc;
 			File fXmlFile = new File(filename);
@@ -54,7 +55,9 @@ public class SaveManager {
 			doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 			Element root = doc.getDocumentElement();
-			return new UserProject(root);
+			UserProject up = new UserProject(root);
+			up.referencePath=filename;
+			return up;
 		} catch (SAXException | IOException | ParserConfigurationException ex) {
 			ex.printStackTrace();
 			

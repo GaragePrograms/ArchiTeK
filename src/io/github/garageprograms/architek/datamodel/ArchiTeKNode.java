@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,16 +28,16 @@ public abstract class ArchiTeKNode extends JLabel {
 		this.comment=comment;
 		setLocation(0, 10);
 		final ArchiTeKNode abc=this;
-		
+		editButton.setBorder(null);
 		 editButton.addActionListener(new ActionListener() {
 	         public void actionPerformed(ActionEvent e) {
-	            new OptionsFrame(abc);
+	            new OptionsFrame(abc, true);
 	         }          
 	      });
 	}
 
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(Color.RED);
+		g2d.setColor(Color.WHITE);
 		g2d.draw(getBounds());
 	}
 	
@@ -71,7 +72,32 @@ public abstract class ArchiTeKNode extends JLabel {
 	public void installToPanel(DrawingPanel drawingPanel, ArchiTeKNode parent){
 		drawingPanel.add(this);
 		drawingPanel.add(this.editButton);
-		this.restoreLocation();
 		this.addChildren(drawingPanel, parent);
+	}
+	
+	public boolean isBeingDragged = false;
+	int lastMouseX=0;
+	int lastMouseY=0;
+	
+	public boolean mousePressed(MouseEvent me) {
+		if (this.getBounds().contains(me.getPoint())){
+			this.isBeingDragged = true;
+			return true;
+		}
+		return false;
+	}
+
+	public void mouseDragged(MouseEvent me) {
+		
+		if (this.isBeingDragged){
+			this.changeLocationBy(me.getX()-this.lastMouseX, me.getY()-lastMouseY);
+			
+		}
+		this.lastMouseX=me.getX();
+		this.lastMouseY=me.getY();
+	}
+	
+	public void mouseReleased(MouseEvent me) {
+		this.isBeingDragged=false;
 	}
 }

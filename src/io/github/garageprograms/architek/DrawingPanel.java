@@ -20,8 +20,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	public UserProject currentProject;
 	private Graphics2D g2d;
 	
-	int lastMouseX=0;
-	int lastMouseY=0;
+	
 
 	private JFrame frame;
 
@@ -49,7 +48,6 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	
 	public void addAllFilesAsJLabels(){
 		for (UserFile f : this.currentProject.files){
-			System.out.println("Adding "+f);
 			f.installToPanel(this, f);
 			f.restoreLocation();
 		}
@@ -69,34 +67,50 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 			f.restoreLocation();
 		}
 		repaint();
+		this.frame.setTitle(ArchiTeK.getInstance().version+" - "+currentProject.name);
 	}
 
 	public void mouseClicked(MouseEvent me) { }
 	public void mouseEntered(MouseEvent me) { }
 	public void mouseExited(MouseEvent me) { }
 	public void mousePressed(MouseEvent me) {
-		objectLoop:
-		for(int i = 0; i < currentProject.files.size(); i++) {
-			if(currentProject.files.get(i).getBounds().contains(me.getPoint())) {
-				node = currentProject.files.get(i);
-				break objectLoop;
-			}
+//		objectLoop:
+//		for(int i = 0; i < currentProject.files.size(); i++) {
+//			if(currentProject.files.get(i).getBounds().contains(me.getPoint())) {
+//				node = currentProject.files.get(i);
+//				break objectLoop;
+//			}
+//		}
+		for (UserFile f : this.currentProject.files){
+			if (f.mousePressed(me)) break;
 		}
 	}
-	public void mouseReleased(MouseEvent me) { node = null; }
+	public void mouseReleased(MouseEvent me) {
+		for (UserFile f : this.currentProject.files){
+			f.mouseReleased(me);
+		}
+	}
 
 	public void mouseDragged(MouseEvent me) {
-		if(node == null) return;
-		node.changeLocationBy(me.getX()-this.lastMouseX, me.getY()-this.lastMouseY);
-		this.lastMouseX=me.getX();
-		this.lastMouseY=me.getY();
-		
-		Point p = me.getPoint();
-		p.x+=node.getBounds().width;
-		node.editButton.setLocation(p);
+//		if(node == null) return;
+//		node.changeLocationBy(me.getX()-this.lastMouseX, me.getY()-this.lastMouseY);
+//		this.lastMouseX=me.getX();
+//		this.lastMouseY=me.getY();
+//		
+//		Point p = me.getPoint();
+//		p.x+=node.getBounds().width;
+//		node.editButton.setLocation(p);
+//		repaint();
+		for (UserFile f : this.currentProject.files){
+			f.mouseDragged(me);
+		}
 		repaint();
 	}
-	public void mouseMoved(MouseEvent me) { }
+	public void mouseMoved(MouseEvent me) {
+		for (UserFile f : this.currentProject.files){
+			f.mouseDragged(me);
+		}
+	}
 
 	// Getter methods:
 	public UserProject getCurrentProject() { return currentProject; }
