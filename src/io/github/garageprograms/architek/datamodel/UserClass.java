@@ -34,6 +34,14 @@ public class UserClass extends UserFile{
 	public ArrayList<UserClass> parentClasses = new ArrayList<UserClass>();
 	public UserFile parent;
 	
+	public int getAbsX(){
+		return parent.getAbsX() + this.x;
+	}
+	
+	public int getAbsY(){
+		return parent.getAbsY() + this.y;
+	}
+	
 	public boolean canApplyProperty(Property p){
 		if (!p.canBeAppliedToClass(this)){
 			return false;

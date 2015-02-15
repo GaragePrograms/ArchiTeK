@@ -72,11 +72,11 @@ public abstract class ArchiTeKNode extends JLabel {
 		this.setLocation(p);
 	}
 	
-	public void addChildren(DrawingPanel drawingPanel) {}
+	public void addChildren(DrawingPanel drawingPanel, ArchiTeKNode parent) {}
 	public void installToPanel(DrawingPanel drawingPanel, ArchiTeKNode parent){
 		drawingPanel.add(this);
 		drawingPanel.add(this.editButton);
 		this.restoreLocation();
-		this.addChildren(drawingPanel);
+		this.addChildren(drawingPanel, parent);
 	}
 }

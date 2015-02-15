@@ -80,7 +80,7 @@ public class UserFile extends SerializableArchiTeKNode {
 		return node;
 	}
 
-	public void addChildren(DrawingPanel drawingPanel) {
+	public void addChildren(DrawingPanel drawingPanel, ArchiTeKNode parent) {
 		for (UserClass c : this.encapsulatedClasses){
 			c.installToPanel(drawingPanel, this);
 		}

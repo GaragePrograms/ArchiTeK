@@ -49,13 +49,12 @@ public class OptionsFrame extends JFrame {
 		this.pack();
 		this.setVisible(true);
 		
-		final ArchiTeKNode abc=node;
 		final OptionsFrame of = this;
 		
 		exitButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		of.node.setNameAndRefresh(of.nameBox.getText());
-	        		of.node.restoreLocation();
+	        		ArchiTeK.getInstance().panel.updateFrame();;
 	        		of.node.comment=of.commentBox.getText();
 	        		//ArchiTeK.getInstance().panel.updateFrame();
 	        		of.dispose();
