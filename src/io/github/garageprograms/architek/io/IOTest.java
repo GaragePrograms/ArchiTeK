@@ -10,23 +10,21 @@ public class IOTest {
 	public static void main(String[] args) {
 		UserProject proj = new UserProject("Test Project", "Test Description");
 		
-		UserFile file = new UserFile();
-		file.name="test.py";
-		file.comment="A Hello World program.";
+		UserFile file = new UserFile("test.py", "A Hello World program.");
 		proj.addFile(file);
 		
-		UserClass array = new UserClass();
-		array.name="Array";
-		array.comment="An array";
+		UserClass array = new UserClass("Array", "An array");
 		proj.addFile(array);
 		
-		UserFunction hw = new UserFunction();
-		hw.name="__main__";
-		hw.comment="It says hello!";
+		UserFunction hw = new UserFunction("__main__", "It says hello!");
 		hw.parameters.put("args", array);
 		file.addFunction(hw);
 		
 		SaveManager.saveProject(proj, "test.ark");
+		
+		UserProject recproj = SaveManager.loadProject("test.ark");
+		System.out.println(recproj.name);
+		System.out.println(recproj.comment);
 	}
 
 }

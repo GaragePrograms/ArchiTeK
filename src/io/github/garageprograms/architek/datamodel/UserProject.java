@@ -10,8 +10,12 @@ public class UserProject extends SerializableArchiTeKNode {
 	public ArrayList<UserProject> imports = new ArrayList<UserProject>();
 
 	public UserProject(String name, String comment) {
-		this.name = name;
-		this.comment = comment;
+		super(name, comment);
+	}
+	
+	public UserProject(Element elem){
+		super("","");
+		this.defaultLoadFromXML(elem);
 	}
 	
 	public String referencePath = ""; //TODO: Setup

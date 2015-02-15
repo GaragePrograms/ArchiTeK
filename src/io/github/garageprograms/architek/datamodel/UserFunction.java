@@ -7,6 +7,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class UserFunction extends SerializableArchiTeKNode{
+	public UserFunction(String name, String comment) {
+		super(name, comment);
+	}
+
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public HashMap<String, UserClass> parameters = new HashMap<String, UserClass>();
 	public UserClass returnType = null;

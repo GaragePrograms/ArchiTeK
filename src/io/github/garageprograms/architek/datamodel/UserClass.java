@@ -6,6 +6,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class UserClass extends UserFile{
+	public UserClass(String name, String comment) {
+		super(name, comment);
+	}
+
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public ArrayList<UserClass> parentClasses = new ArrayList<UserClass>();
 	public UserFile    parentFile = null;
