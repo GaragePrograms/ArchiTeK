@@ -11,9 +11,4 @@ public class ProgrammingLanguage {
 	public String uniqueID = "";
 	public ArrayList<Property> properties = new ArrayList<Property>();
 	public Exporter exporter;
-	public UserFile  builtins = new UserFile("__builtins__", "Built-in stuff");
-	public UserClass voidType = new UserClass("Void", "Use this to represent a void function");
-	public ProgrammingLanguage(){
-		voidType.parent=builtins;
-	}
 }

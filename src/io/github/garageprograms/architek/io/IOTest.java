@@ -20,7 +20,7 @@ public class IOTest {
 		
 		UserClass array = new UserClass("Array", "An array");
 		UserFunction add = new UserFunction("append", "Append to the array");
-		add.parameters.put("(positional 0)", any);
+		add.parameters.put("object", any);
 		array.addFunction(add);
 		sys.addClass(array);
 		
@@ -44,7 +44,7 @@ public class IOTest {
 		SaveManager.saveProject(proj, "test.ark");
 		
 		UserProject recproj = SaveManager.loadProject("test.ark");
-		System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).returnType);
+		System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).parameters);
 	}
 
 }
