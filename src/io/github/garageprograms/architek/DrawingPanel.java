@@ -20,8 +20,6 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	public UserProject currentProject;
 	private Graphics2D g2d;
 	
-	
-
 	private JFrame frame;
 
 	private ArchiTeKNode node;
