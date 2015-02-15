@@ -9,12 +9,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class UserFile extends SerializableArchiTeKNode{
-	int x, y;
-
 	public UserFile(String name, String comment) {
 		super(name, comment);
-		x = 0;
-		y = 0;
 	}
 	
 	public UserFile(Element elem, ArchiTeKNode directParent, UserProject project){
