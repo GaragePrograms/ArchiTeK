@@ -1,8 +1,6 @@
 package io.github.garageprograms.architek.plugins;
 
 import io.github.garageprograms.architek.datamodel.Property;
-import io.github.garageprograms.architek.datamodel.UserClass;
-import io.github.garageprograms.architek.datamodel.UserFile;
 
 import java.util.ArrayList;
 

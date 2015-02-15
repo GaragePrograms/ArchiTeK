@@ -17,16 +17,16 @@ public class UserProject extends SerializableArchiTeKNode {
 	public UserProject(Element elem){
 		super("","");
 		this.defaultLoadFromXML(elem);
-		NodeList filesNode = elem.getElementsByTagName("files").item(0).getChildNodes();
-		for (int temp = 0; temp < filesNode.getLength(); temp++) {
-			Element fileNode = (Element)filesNode.item(temp);
-			this.addFile(new UserFile(fileNode, (ArchiTeKNode)this, this));
-		}
-		
 		NodeList importsNode = elem.getElementsByTagName("imports").item(0).getChildNodes();
 		for (int temp = 0; temp < importsNode.getLength(); temp++) {
 			Element importNode = (Element)importsNode.item(temp);
 			this.imports.add(new UserProject(importNode));
+		}
+		
+		NodeList filesNode = elem.getElementsByTagName("files").item(0).getChildNodes();
+		for (int temp = 0; temp < filesNode.getLength(); temp++) {
+			Element fileNode = (Element)filesNode.item(temp);
+			this.addFile(new UserFile(fileNode, (ArchiTeKNode)this, this));
 		}
 	}
 	
