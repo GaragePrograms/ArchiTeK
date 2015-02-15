@@ -36,7 +36,7 @@ public class IOTest {
 //		proj.addFile(sys);
 		
 		UserProject proj = new UserProject("Test", "test");
-		proj.installLibrary("python27_00");
+		//proj.installLibrary("python27_00");
 		System.out.println(proj.getClassByLookup("__builtin__:String").comment);
 	}
 

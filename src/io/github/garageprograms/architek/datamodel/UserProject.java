@@ -2,6 +2,7 @@ package io.github.garageprograms.architek.datamodel;
 
 import io.github.garageprograms.architek.io.SaveManager;
 import io.github.garageprograms.architek.plugins.FilePaths;
+import io.github.garageprograms.architek.plugins.PluginManager;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class UserProject extends SerializableArchiTeKNode {
 
 	public UserProject(String name, String comment) {
 		super(name, comment);
+		PluginManager.getInstance().onProjectStart(this);
 	}
 	
 	public UserProject(Element elem){
