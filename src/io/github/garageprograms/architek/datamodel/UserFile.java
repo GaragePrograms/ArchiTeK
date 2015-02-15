@@ -15,6 +15,7 @@ public class UserFile extends SerializableArchiTeKNode {
 		super("","");
 		this.defaultLoadFromXML(elem);
 		
+		
 		NodeList classesNode = elem.getElementsByTagName("encapsulatedClasses").item(0).getChildNodes();
 		for (int temp = 0; temp < classesNode.getLength(); temp++) {
 			Element classNode = (Element)classesNode.item(temp);

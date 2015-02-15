@@ -6,11 +6,14 @@ package io.github.garageprograms.architek;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
 import io.github.garageprograms.architek.datamodel.UserFile;
 import io.github.garageprograms.architek.datamodel.UserProject;
+import io.github.garageprograms.architek.io.SaveManager;
 import io.github.garageprograms.architek.plugins.PluginManager;
 
 /**
@@ -57,6 +60,9 @@ public class ArchiTeK {
 		menuBar.add(fileMenu);
 		fileMenu.add(newProject);
 		fileMenu.addSeparator();
+		fileMenu.add(saveProject);
+		fileMenu.add(loadProject);
+		fileMenu.addSeparator();
 		fileMenu.add(quit);
 
 		// Create edit menu
@@ -76,6 +82,41 @@ public class ArchiTeK {
 		public void actionPerformed(ActionEvent ae) {
 			panel.currentProject = new UserProject("Untitled New", "New project.");
 			panel.updateFrame();
+		}
+	};
+	
+	private Action saveProject = new AbstractAction("Save Project") {
+		public void actionPerformed(ActionEvent ae) {
+			final JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(ArchiTeK.getInstance().frame);
+
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fc.getSelectedFile();
+	            SaveManager.saveProject(ArchiTeK.getInstance().panel.currentProject, file.getAbsolutePath());;
+	        } else {
+	            System.out.println("No file selected");
+	        }
+		}
+	};
+	
+	private Action loadProject = new AbstractAction("Load Project") {
+		public void actionPerformed(ActionEvent ae) {
+			final JFileChooser fc = new JFileChooser();
+			int returnVal = fc.showOpenDialog(ArchiTeK.getInstance().frame);
+
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fc.getSelectedFile();
+	            try {
+					ArchiTeK.getInstance().panel.currentProject=SaveManager.loadProject(file.getAbsolutePath());
+					ArchiTeK.getInstance().panel.updateFrame();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					 System.out.println("Bad file");
+					e.printStackTrace();
+				}
+	        } else {
+	            System.out.println("No file selected");
+	        }
 		}
 	};
 

@@ -27,6 +27,7 @@ public abstract class SerializableArchiTeKNode extends ArchiTeKNode{
 		Element elem = (Element) baseElem.getElementsByTagName("ArchiTeKNode").item(0);
 		this.name = elem.getElementsByTagName("name").item(0).getTextContent();
 		this.comment = elem.getElementsByTagName("comment").item(0).getTextContent();
+		this.setNameAndRefresh(name);
 	}
 	
 	public abstract Element saveToXML(Document doc);
