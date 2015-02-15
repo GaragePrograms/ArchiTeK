@@ -18,9 +18,9 @@ public abstract class ArchiTeKNode extends JLabel {
 	public String name = "";
 	public String comment = "";
 	public JButton editButton = new JButton("Edit");
+	public JButton removeButton = new JButton("Remove");
 	public int x = 0;
 	public int y = 0;
-	
 
 	public ArchiTeKNode(String name, String comment){
 		super(name);
@@ -32,6 +32,12 @@ public abstract class ArchiTeKNode extends JLabel {
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new OptionsFrame(abc, true);
+			}
+		});
+		removeButton.setBorder(null);
+		removeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// REMOVE ME
 			}
 		});
 	}
@@ -53,10 +59,12 @@ public abstract class ArchiTeKNode extends JLabel {
 	public void restoreLocation(){
 		this.setLocation(x, y);
 		this.editButton.setLocation(x+this.getBounds().width, y);
+		this.removeButton.setLocation(x+this.getBounds().width, y+this.editButton.getBounds().height);
 	}
 	
 	public void renderButton(Graphics2D g2d){
 		editButton.paint(g2d);
+		removeButton.paint(g2d);
 	}
 	
 	public boolean canApplyProperty(Property p){
@@ -72,6 +80,7 @@ public abstract class ArchiTeKNode extends JLabel {
 	public void installToPanel(DrawingPanel drawingPanel, ArchiTeKNode parent){
 		drawingPanel.add(this);
 		drawingPanel.add(this.editButton);
+		drawingPanel.add(this.removeButton);
 		this.addChildren(drawingPanel, parent);
 	}
 	
