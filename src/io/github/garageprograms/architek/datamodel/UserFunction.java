@@ -37,11 +37,9 @@ public class UserFunction extends SerializableArchiTeKNode{
 	public UserClass returnType = PluginManager.getInstance().language.voidType;
 	public UserFile parent = null;
 	
-	public boolean canApplyProperty(Property propertyList){
-		for (Property p : this.properties){
-			if (!p.canBeAppliedToFunction(this)){
-				return false;
-			}
+	public boolean canApplyProperty(Property p){
+		if (!p.canBeAppliedToFunction(this)){
+			return false;
 		}
 		return true;
 	}

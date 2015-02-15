@@ -44,7 +44,7 @@ public class IOTest {
 		SaveManager.saveProject(proj, "test.ark");
 		
 		UserProject recproj = SaveManager.loadProject("test.ark");
-		System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).parameters);
+		System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).returnType);
 	}
 
 }
