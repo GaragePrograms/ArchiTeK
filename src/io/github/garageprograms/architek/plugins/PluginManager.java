@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.ArrayList;
 
 import io.github.garageprograms.architek.datamodel.Property;
 
@@ -20,6 +21,7 @@ public class PluginManager {
    }
 	   
 	public ProgrammingLanguage language;
+	public ArrayList<ProgrammingLanguage> languages = new ArrayList<ProgrammingLanguage>();
 	
 	public Property getProperty(String name){
 		for (Property p : this.language.properties){
@@ -28,6 +30,19 @@ public class PluginManager {
 			}
 		}
 		return null;
+	}
+	
+	public ProgrammingLanguage getLanguage(String uniqueID){
+		for (ProgrammingLanguage l : this.languages){
+			if (l.uniqueID.equals(uniqueID)){
+				return l;
+			}
+		}
+		return null;
+	}
+	
+	public void installLanguage(String uniqueID){
+		this.language=this.getLanguage(uniqueID);
 	}
 	
 	public void loadAllPlugins(String libDir){

@@ -6,13 +6,12 @@ import io.github.garageprograms.architek.datamodel.UserFunction;
 import io.github.garageprograms.architek.datamodel.UserProject;
 import io.github.garageprograms.architek.datamodel.UserVariable;
 import io.github.garageprograms.architek.plugins.PluginManager;
-import io.github.garageprograms.architek.plugins.ProgrammingLanguage;
 
 public class IOTest {
 
 	public static void main(String[] args) {
 		PluginManager.getInstance().loadAllPlugins("plugins");
-		PluginManager.getInstance().language=new ProgrammingLanguage();
+		PluginManager.getInstance().installLanguage("python27_v00");
 		UserProject proj = new UserProject("Test Project", "Test Description");
 		
 		UserFile sys = new UserFile("__builtin__", "System Builtins");
@@ -45,7 +44,7 @@ public class IOTest {
 		SaveManager.saveProject(proj, "test.ark");
 		
 		UserProject recproj = SaveManager.loadProject("test.ark");
-		//System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).parameters.get("object").name);
+		System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).parameters.get("object").name);
 	}
 
 }
