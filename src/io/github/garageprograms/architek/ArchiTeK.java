@@ -17,7 +17,7 @@ import javax.swing.*;
 public class ArchiTeK {
 	private JFrame frame;
 	private JMenuBar menuBar;
-	private JMenu fileMenu, aboutMenu;
+	private JMenu fileMenu, editMenu, aboutMenu;
 
 	private DrawingPanel panel;
 
@@ -46,6 +46,11 @@ public class ArchiTeK {
 		fileMenu.addSeparator();
 		fileMenu.add(quit);
 
+		// Create edit menu
+		editMenu = new JMenuBar();
+		menuBar.add(editMenu);
+		editMenu.add(addFile);
+
 		// Create about menu
 		aboutMenu = new JMenu("About");
 		menuBar.add(aboutMenu);
@@ -62,10 +67,11 @@ public class ArchiTeK {
 
 	private Action quit = new AbstractAction("Quit") {
 		public void actionPerformed(ActionEvent ae) {
-//			panel.stop();
 			System.exit(0);
 		}
 	};
+
+	private Action addFile = new AbstractAction("Add File") {};
 
 	private Action copyrightPopup = new AbstractAction("Copyright") {
 		public void actionPerformed(ActionEvent ae) {
