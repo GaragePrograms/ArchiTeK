@@ -15,6 +15,8 @@ public abstract class ArchiTeKNode extends JLabel {
 	public String name = "";
 	public String comment = "";
 	public JButton editButton = new JButton("Edit");
+	public int x = 0;
+	public int y = 0;
 
 	public ArchiTeKNode(String name, String comment){
 		super(name);
@@ -33,6 +35,16 @@ public abstract class ArchiTeKNode extends JLabel {
 	public void draw(Graphics2D g2d) {
 		g2d.setColor(Color.RED);
 		g2d.draw(getBounds());
+	}
+	
+	public void saveLocation(int x, int y){
+		this.x=x;
+		this.y=y;
+	}
+	
+	public void restoreLocation(){
+		this.setLocation(x, y);
+		this.editButton.setLocation(x+this.getBounds().width, y);
 	}
 	
 	public void renderButton(Graphics2D g2d){

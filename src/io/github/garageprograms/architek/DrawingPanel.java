@@ -65,6 +65,10 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 		this.addAllFilesAsJLabels();
 		frame.revalidate();
 		repaint();
+		for (UserFile f : this.currentProject.files){
+			f.restoreLocation();
+		}
+		repaint();
 	}
 
 	public void mouseClicked(MouseEvent me) { }
@@ -84,6 +88,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	public void mouseDragged(MouseEvent me) {
 		if(node == null) return;
 		node.setLocation(me.getPoint());
+		node.saveLocation(me.getX(), me.getY());
 		Point p = me.getPoint();
 		p.x+=node.getBounds().width;
 		node.editButton.setLocation(p);
