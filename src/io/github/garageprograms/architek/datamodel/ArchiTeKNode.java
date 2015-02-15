@@ -3,6 +3,7 @@ package io.github.garageprograms.architek.datamodel;
 import io.github.garageprograms.architek.OptionsFrame;
 
 import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,6 +27,11 @@ public abstract class ArchiTeKNode extends JLabel {
 	            new OptionsFrame(abc);
 	         }          
 	      });
+	}
+
+	public void draw(Graphics2D g2d) {
+		g2d.setColor(Color.RED);
+		g2d.draw(getBounds());
 	}
 	
 	public void renderButton(Graphics2D g2d){

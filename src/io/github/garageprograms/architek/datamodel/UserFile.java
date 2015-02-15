@@ -45,12 +45,6 @@ public class UserFile extends SerializableArchiTeKNode {
 	public ArrayList<UserVariable> encapsulatedVariables = new ArrayList<UserVariable>();
 	public UserProject parent = null;
 
-	public void draw(Graphics2D g2d) {
-		g2d.setColor(Color.RED);
-		g2d.draw(getBounds());
-		//this.paint(g2d);
-	}
-
 	public void addClass(UserClass c){
 		this.encapsulatedClasses.add(c);
 		c.parent = this;
