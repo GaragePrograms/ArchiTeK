@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public abstract class ArchiTeKNode extends JLabel {
 	public String name = "";
@@ -39,8 +41,11 @@ public abstract class ArchiTeKNode extends JLabel {
 		removeButton.setBorder(null);
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				remove = true;
-				ArchiTeK.getInstance().panel.updateFrame();
+				int answer = JOptionPane.showConfirmDialog(new JFrame(), "Are you sure you want to remove this?", "Are you sure?", JOptionPane.YES_NO_OPTION);
+				if(answer == JOptionPane.YES_OPTION) {
+					remove = true;
+					ArchiTeK.getInstance().panel.updateFrame();
+				}
 			}
 		});
 	}
