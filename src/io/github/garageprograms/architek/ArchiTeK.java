@@ -8,6 +8,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
+import io.github.garageprograms.architek.datamodel.UserFile;
+
 /**
  * The main class of the program.
  * 
@@ -47,7 +49,7 @@ public class ArchiTeK {
 		fileMenu.add(quit);
 
 		// Create edit menu
-		editMenu = new JMenuBar();
+		editMenu = new JMenu("Edit");
 		menuBar.add(editMenu);
 		editMenu.add(addFile);
 
@@ -71,7 +73,11 @@ public class ArchiTeK {
 		}
 	};
 
-	private Action addFile = new AbstractAction("Add File") {};
+	private Action addFile = new AbstractAction("Add File") {
+		public void actionPerformed(ActionEvent ae) {
+			panel.getCurrentProject().files.add(new UserFile("Untitled", "Untitled"));
+		}
+	};
 
 	private Action copyrightPopup = new AbstractAction("Copyright") {
 		public void actionPerformed(ActionEvent ae) {
