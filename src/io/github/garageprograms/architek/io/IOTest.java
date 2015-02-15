@@ -11,6 +11,7 @@ import io.github.garageprograms.architek.plugins.ProgrammingLanguage;
 public class IOTest {
 
 	public static void main(String[] args) {
+		PluginManager.getInstance().loadAllPlugins("plugins");
 		PluginManager.getInstance().language=new ProgrammingLanguage();
 		UserProject proj = new UserProject("Test Project", "Test Description");
 		
@@ -44,7 +45,7 @@ public class IOTest {
 		SaveManager.saveProject(proj, "test.ark");
 		
 		UserProject recproj = SaveManager.loadProject("test.ark");
-		System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).parameters.get("object").name);
+		//System.out.println(recproj.files.get(0).encapsulatedClasses.get(1).encapsulatedFunctions.get(0).parameters.get("object").name);
 	}
 
 }
