@@ -34,7 +34,6 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 	}
 
 	public void paintComponent(Graphics g) {
-		//super.paintComponent(g);
 		g2d = (Graphics2D)g;
 
 		g2d.setColor(Color.WHITE);
@@ -42,7 +41,6 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 
 		for(int i = 0; i < currentProject.files.size(); i++) {
 			currentProject.files.get(i).draw(g2d);
-			//currentProject.files.get(i).renderButton(g2d);
 		}
 	}
 	

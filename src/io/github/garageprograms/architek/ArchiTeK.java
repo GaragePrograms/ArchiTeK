@@ -24,12 +24,12 @@ import io.github.garageprograms.architek.plugins.PluginManager;
  */
 public class ArchiTeK {
 	private static ArchiTeK instance = null;
-	   public static ArchiTeK getInstance() {
-	      if(instance == null) {
-	         instance = new ArchiTeK();
-	      }
-	      return instance;
-	   }
+	public static ArchiTeK getInstance() {
+		if(instance == null) {
+			instance = new ArchiTeK();
+		}
+		return instance;
+	}
 	   
 	public JFrame frame;
 	private JMenuBar menuBar;
@@ -88,7 +88,7 @@ public class ArchiTeK {
 	private Action saveProject = new AbstractAction("Save Project") {
 		public void actionPerformed(ActionEvent ae) {
 			final JFileChooser fc = new JFileChooser();
-			int returnVal = fc.showOpenDialog(ArchiTeK.getInstance().frame);
+			int returnVal = fc.showSaveDialog(ArchiTeK.getInstance().frame);
 
 	        if (returnVal == JFileChooser.APPROVE_OPTION) {
 	            File file = fc.getSelectedFile();
