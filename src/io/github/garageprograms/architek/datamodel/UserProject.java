@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 
 public class UserProject extends SerializableArchiTeKNode {
 	public ArrayList<UserFile> files = new ArrayList<UserFile>();
+	public ArrayList<UserClass> protoClasses = new ArrayList<UserClass>();
 	public ArrayList<UserProject> imports = new ArrayList<UserProject>();
 
 	public UserProject(String name, String comment) {
@@ -17,10 +18,20 @@ public class UserProject extends SerializableArchiTeKNode {
 	public UserProject(Element elem){
 		super("","");
 		this.defaultLoadFromXML(elem);
+		
 		NodeList importsNode = elem.getElementsByTagName("imports").item(0).getChildNodes();
 		for (int temp = 0; temp < importsNode.getLength(); temp++) {
 			Element importNode = (Element)importsNode.item(temp);
 			this.imports.add(new UserProject(importNode));
+		}
+		
+		NodeList classStubs = elem.getElementsByTagName("UserClass");
+		for (int temp = 0; temp < classStubs.getLength(); temp++) {
+			Element stub = (Element)classStubs.item(temp);
+			UserFile temp1 = new UserFile(stub.getAttribute("protoClassSourceID"),"");
+			UserClass tempclass = new UserClass(stub, (ArchiTeKNode) temp1, this);
+			temp1.addClass(tempclass);
+			this.protoClasses.add(tempclass);
 		}
 		
 		NodeList filesNode = elem.getElementsByTagName("files").item(0).getChildNodes();
@@ -28,6 +39,8 @@ public class UserProject extends SerializableArchiTeKNode {
 			Element fileNode = (Element)filesNode.item(temp);
 			this.addFile(new UserFile(fileNode, (ArchiTeKNode)this, this));
 		}
+		
+		
 	}
 	
 	public String referencePath = ""; //TODO: Setup
@@ -77,6 +90,11 @@ public class UserProject extends SerializableArchiTeKNode {
 		for (UserProject p : this.imports){
 			if (p.getClassByLookup(lookupID)!=null){
 				return p.getClassByLookup(lookupID);
+			}
+		}
+		for (UserClass c : this.protoClasses){
+			if (c.getLookupID().equals(lookupID)){
+				return c;
 			}
 		}
 		return null;

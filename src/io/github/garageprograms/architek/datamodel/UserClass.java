@@ -58,6 +58,7 @@ public class UserClass extends UserFile{
 		
 		node.appendChild(propertiesNode);
 		node.appendChild(parentsNode);
+		node.setAttribute("protoClassSourceID", this.parent.name);
 		
 		return node;
 	}

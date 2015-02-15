@@ -28,9 +28,9 @@ public class UserFunction extends SerializableArchiTeKNode{
 		NodeList parametersNode = elem.getElementsByTagName("parameters").item(0).getChildNodes();
 		for (int temp = 0; temp < parametersNode.getLength(); temp++) {
 			Element parameterNode = (Element)parametersNode.item(temp);
-			System.out.println("Name => "+parameterNode.getAttribute("name"));
-			System.out.println("======> "+parameterNode.getAttribute("type"));
-			System.out.println("======> "+project.getClassByLookup(parameterNode.getAttribute("type")));
+			//System.out.println("Name => "+parameterNode.getAttribute("name"));
+			//System.out.println("======> "+parameterNode.getAttribute("type"));
+			//System.out.println("======> "+project.getClassByLookup(parameterNode.getAttribute("type")));
 			this.parameters.put(parameterNode.getAttribute("name"), project.getClassByLookup(parameterNode.getAttribute("type")));
 		}
 	}
