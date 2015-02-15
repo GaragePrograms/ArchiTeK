@@ -1,5 +1,6 @@
 package io.github.garageprograms.architek.datamodel;
 
+import io.github.garageprograms.architek.ArchiTeK;
 import io.github.garageprograms.architek.plugins.PluginManager;
 
 import java.awt.Color;

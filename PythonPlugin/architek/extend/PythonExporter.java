@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.github.garageprograms.architek.datamodel.UserFile;
 import io.github.garageprograms.architek.datamodel.UserProject;
@@ -20,11 +22,15 @@ public class PythonExporter implements Exporter {
 	}
 	
 	public void recusivleyDelete(File root){
-		String[]entries = root.list();
-		for(String s: entries){
-		    File currentFile = new File(root,s);
-		    currentFile.delete();
-		    log("Deleted "+currentFile.getAbsolutePath()+" as part of deleting "+root.getAbsolutePath());
+		if (root.exists()){
+			String[]entries = root.list();
+			for(String s: entries){
+			    File currentFile = new File(root,s);
+			    currentFile.delete();
+			    log("Deleted "+currentFile.getAbsolutePath()+" as part of deleting "+root.getAbsolutePath());
+			}
+		}else{
+			log("Didnt delete "+root.getAbsolutePath()+", dosent exist");
 		}
 	}
 	
@@ -39,14 +45,28 @@ public class PythonExporter implements Exporter {
 	}
 	
 	public void writeUserFile(UserFile f, File root) throws IOException{
-		log("Creating a UserFile");
-		File path = new File(root.getAbsolutePath());
-		for (String i : f.name.split(".")){
-			path=new File(path, i);
+		log("Creating a UserFile from "+f.name);
+		String[] parts = f.name.split("\\.");
+		//System.out.println("Parts: "+parts[0]);
+		int pos = 0;
+		String folderPath = root.getAbsolutePath()+"/";
+		String filePath = "";
+		for (String s : parts){
+			//System.out.println("On "+pos);
+			//System.out.println("Token: "+s);
+			//System.out.println("Last: "+!(pos!=parts.length-1));
+			if (pos!=parts.length-1){
+				folderPath += s+"/";
+			}else{
+				filePath = folderPath+s+".py";
+			}
+			pos++;
 		}
-		log("Mapped python module "+f.name+" to folder set "+path.getAbsolutePath());
-		ensureDirectoryExists(path);
-		BufferedWriter writer = getWriter(path);
+		
+		log("Mapped python module "+f.name+" to folder set "+folderPath);
+		log("Full module name: "+filePath);
+		ensureDirectoryExists(new File(folderPath));
+		BufferedWriter writer = getWriter(new File(filePath));
 		writer.write(f.name);
 		writer.close();
 	}

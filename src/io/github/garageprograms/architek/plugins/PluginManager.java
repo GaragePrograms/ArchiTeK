@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.security.Permission;
 import java.util.ArrayList;
 
 import io.github.garageprograms.architek.ArchiTeK;
@@ -13,6 +14,13 @@ import io.github.garageprograms.architek.datamodel.Property;
 import io.github.garageprograms.architek.datamodel.UserProject;
 
 public class PluginManager {
+	
+	class MySecurityManager extends SecurityManager {
+		  public void checkPermission(Permission file) {
+		    return;
+		  }
+		}
+	
    private static PluginManager instance = null;
    private PluginManager() {}
    public boolean hasStarted = false;
@@ -41,7 +49,10 @@ public class PluginManager {
 	
 	public ProgrammingLanguage getLanguage(String uniqueID){
 		for (ProgrammingLanguage l : this.languages){
+			System.out.println("Comparing "+l.getUniqueID()+" vs. "+uniqueID);
+			
 			if (l.getUniqueID().equals(uniqueID)){
+				System.out.println("Got it.");
 				return l;
 			}
 		}
@@ -49,10 +60,13 @@ public class PluginManager {
 	}
 	
 	public void installLanguage(String uniqueID){
+		System.out.println("pluginManager.installLanguage requested "+uniqueID);
 		this.language=this.getLanguage(uniqueID);
+		System.out.println("Result ==> "+this.language);
 	}
 	
 	public void loadAllPlugins(){
+		System.setSecurityManager(null);
 		try{
 			this.loadAllPluginsInDir(FilePaths.getGlobalPluginPath().getAbsolutePath());
 		}catch(NullPointerException e){
