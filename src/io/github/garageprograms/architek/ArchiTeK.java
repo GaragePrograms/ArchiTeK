@@ -118,6 +118,7 @@ public class ArchiTeK {
 	
 	private Action addImportFile = new AbstractAction("Link Project.ark") {
 		public void actionPerformed(ActionEvent ae) {
+			if (!PluginManager.getInstance().hasStarted) PluginManager.getInstance().loadAllPlugins();
 			final JFileChooser fc = new JFileChooser();
 			int returnVal = fc.showOpenDialog(ArchiTeK.getInstance().frame);
 
@@ -138,6 +139,7 @@ public class ArchiTeK {
 	
 	private Action addImportLib = new AbstractAction("Link Project Lib") {
 		public void actionPerformed(ActionEvent ae) {
+			if (!PluginManager.getInstance().hasStarted) PluginManager.getInstance().loadAllPlugins();
 			String s = (String)JOptionPane.showInputDialog(null, "NOTE: Must be on ArchiTeK Path to be imported.");
 			ArchiTeK.getInstance().panel.currentProject.installLibrary(s);
 		}
@@ -159,6 +161,7 @@ public class ArchiTeK {
 	
 	private Action loadProject = new AbstractAction("Load Project") {
 		public void actionPerformed(ActionEvent ae) {
+			if (!PluginManager.getInstance().hasStarted) PluginManager.getInstance().loadAllPlugins();
 			final JFileChooser fc = new JFileChooser();
 			int returnVal = fc.showOpenDialog(ArchiTeK.getInstance().frame);
 
@@ -180,6 +183,7 @@ public class ArchiTeK {
 	
 	private Action loadProjectTest = new AbstractAction("Load Test Project") {
 		public void actionPerformed(ActionEvent ae) {
+			if (!PluginManager.getInstance().hasStarted) PluginManager.getInstance().loadAllPlugins();
 			try {
 				ArchiTeK.getInstance().panel.currentProject=SaveManager.loadProject("python27_v00.ark");
 			} catch (FileNotFoundException e) {

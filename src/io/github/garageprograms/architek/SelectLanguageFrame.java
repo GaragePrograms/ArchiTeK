@@ -42,6 +42,9 @@ class SelectLanguageFrame extends JFrame {
 		final SelectLanguageFrame slf = this;
 		OKButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
+	        		System.out.println("Mapping -> "+slf.mapping[1]);
+	        		System.out.println("Value   -> "+slf.combo.getSelectedIndex());
+	        		System.out.println("Result  -> "+slf.mapping[slf.combo.getSelectedIndex()]);
 	        		PluginManager.getInstance().installLanguage(slf.mapping[slf.combo.getSelectedIndex()]);
 	        		ArchiTeK.getInstance().panel.currentProject = new UserProject("Untitled "+(String)slf.combo.getSelectedItem()+" Project", "New project.");
 	        		ArchiTeK.getInstance().panel.updateFrame();

@@ -56,6 +56,13 @@ public class UserProject extends SerializableArchiTeKNode {
 		}
 		
 		//PluginManager.getInstance().onProjectStart(this);
+		
+		if (PluginManager.getInstance().language==null || PluginManager.getInstance().language.getUniqueID().equals("_default")){
+			if (!this.programmingLanguageUID.equals("")){		
+				PluginManager.getInstance().installLanguage(this.programmingLanguageUID);
+			}
+		}
+		System.out.println("langset ==> "+PluginManager.getInstance().language);
 	}
 	
 	public String referencePath = ""; //TODO: Setup
