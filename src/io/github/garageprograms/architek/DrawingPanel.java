@@ -16,11 +16,13 @@ import io.github.garageprograms.architek.datamodel.*;
  * @author Nicolás A. Ortega
  * @version 15.02.14
  */
-public class DrawingPanel extends JPanel implements MouseListener {
+public class DrawingPanel extends JPanel implements MouseListener, MouseMotionListener {
 	private UserProject currentProject;
 	private Graphics2D g2d;
 
 	private JFrame frame;
+
+	private ArchiTeKNode node;
 
 	public DrawingPanel(JFrame frame, String name) {
 		this.frame = frame;
@@ -28,6 +30,7 @@ public class DrawingPanel extends JPanel implements MouseListener {
 		currentProject = new UserProject(name, "Comments.");
 		repaint();
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 
 	public void paintComponent(Graphics g) {
@@ -37,7 +40,6 @@ public class DrawingPanel extends JPanel implements MouseListener {
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, frame.getContentPane().getSize().width, frame.getContentPane().getSize().height);
 
-		g2d.translate(0, 10);
 		for(int i = 0; i < currentProject.files.size(); i++) {
 			currentProject.files.get(i).draw(g2d);
 		}
@@ -51,8 +53,23 @@ public class DrawingPanel extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent me) { }
 	public void mouseEntered(MouseEvent me) { }
 	public void mouseExited(MouseEvent me) { }
-	public void mousePressed(MouseEvent me) { }
-	public void mouseReleased(MouseEvent me) { }
+	public void mousePressed(MouseEvent me) {
+		objectLoop:
+		for(int i = 0; i < currentProject.files.size(); i++) {
+			if(currentProject.files.get(i).rect.contains(me.getPoint())) {
+				node = currentProject.files.get(i);
+				break objectLoop;
+			}
+		}
+	}
+	public void mouseReleased(MouseEvent me) { node = null; }
+
+	public void mouseDragged(MouseEvent me) {
+		if(node == null) return;
+		node.rect.setLocation(me.getPoint());
+		repaint();
+	}
+	public void mouseMoved(MouseEvent me) { }
 
 	// Getter methods:
 	public UserProject getCurrentProject() { return currentProject; }
