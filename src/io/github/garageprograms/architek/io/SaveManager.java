@@ -1,6 +1,7 @@
 package io.github.garageprograms.architek.io;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -41,18 +42,22 @@ public class SaveManager {
 		
 	}
 	
-	public static UserProject loadProject(String filename){
+	public static UserProject loadProject(String filename) throws FileNotFoundException{
 		try {
 			Document doc;
 			File fXmlFile = new File(filename);
+			if (!fXmlFile.exists()){
+				throw new FileNotFoundException();
+			}
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 			Element root = doc.getDocumentElement();
 			return new UserProject(root);
-		} catch (SAXException | IOException | ParserConfigurationException e) {
-			e.printStackTrace();
+		} catch (SAXException | IOException | ParserConfigurationException ex) {
+			ex.printStackTrace();
+			
 		}
 	 
 		return null;

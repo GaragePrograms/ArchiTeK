@@ -4,6 +4,8 @@ import io.github.garageprograms.architek.io.SaveManager;
 import io.github.garageprograms.architek.plugins.FilePaths;
 import io.github.garageprograms.architek.plugins.PluginManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
@@ -107,21 +109,27 @@ public class UserProject extends SerializableArchiTeKNode {
 	}
 	
 	public void installLibrary(String filename){
-		try{
-			this.addImport(FilePaths.getLocalLibraryPath().getAbsolutePath()+"/"+filename+".ark");
-			return;
-		}catch(NullPointerException e){
-			System.out.println("Could not find local library path. Does '"+FilePaths.getLocalLibraryPath()+"' exist?");
-		}
-		
-		try{
-			this.addImport(FilePaths.getGlobalLibraryPath().getAbsolutePath()+"/"+filename+".ark");
-		}catch(NullPointerException e){
-			System.out.println("Could not find global library path. Does '"+FilePaths.getGlobalLibraryPath()+"' exist?");
+		if (new File(FilePaths.getLocalLibraryPath().getAbsolutePath()+"/"+filename+".ark").exists()){
+			try{
+				this.addImport(FilePaths.getLocalLibraryPath().getAbsolutePath()+"/"+filename+".ark");
+				//return;
+			}catch(NullPointerException e){
+				System.out.println("Could not find local library path. Does '"+FilePaths.getLocalLibraryPath()+"' exist?");
+			} catch (FileNotFoundException e) {
+				System.out.println("File not found. Is it a valid filename?");
+			}
+		}else{
+			try{
+				this.addImport(FilePaths.getGlobalLibraryPath().getAbsolutePath()+"/"+filename+".ark");
+			}catch(NullPointerException e){
+				System.out.println("Could not find global library path. Does '"+FilePaths.getGlobalLibraryPath()+"' exist?");
+			} catch (FileNotFoundException e) {
+				System.out.println("File not found. Is it a valid filename?");
+			}
 		}
 	}
 	
-	public void addImport(String filename){
+	public void addImport(String filename) throws FileNotFoundException{
 		this.imports.add(SaveManager.loadProject(filename));
 	}
 }
