@@ -55,7 +55,7 @@ public class OptionsFrame extends JFrame {
 		        		of.node.comment=of.commentBox.getText();
 		        		of.node.setNameAndRefresh(of.nameBox.getText());
 	        		}
-	        		of.dispose();
+				of.dispose();
 	        	}
 		});
 		mainPanel.add(exitButton);
