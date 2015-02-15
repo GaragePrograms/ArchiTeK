@@ -21,14 +21,11 @@ public class DrawingPanel extends JPanel/* implements Runnable*/ {
 
 	private JFrame frame;
 
-	public DrawingPanel(JFrame frame) {
+	public DrawingPanel(JFrame frame, String name) {
 		this.frame = frame;
 		setFocusable(true);
+		currentProject = new UserProject(name, "Comments.");
 		repaint();
-	}
-
-	public void createProject(String name) {
-		currentProject = new UserProject(name, "Untitled");
 	}
 
 	public void paintComponent(Graphics g) {
@@ -38,9 +35,15 @@ public class DrawingPanel extends JPanel/* implements Runnable*/ {
 		g2d.setColor(Color.WHITE);
 		g2d.fillRect(0, 0, frame.getContentPane().getSize().width, frame.getContentPane().getSize().height);
 
-		/*for(int i = 0; i < currentProject.files.size(); i++) {
+		g2d.translate(0, 10);
+		for(int i = 0; i < currentProject.files.size(); i++) {
 			currentProject.files.get(i).draw(g2d);
-		}*/
+		}
+	}
+
+	public void addFile(String name, String comment) {
+		currentProject.files.add(new UserFile(name, comment));
+		repaint();
 	}
 
 	// Getter methods:
