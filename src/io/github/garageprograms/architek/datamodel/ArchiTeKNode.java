@@ -22,6 +22,8 @@ public abstract class ArchiTeKNode extends JLabel {
 	public int x = 0;
 	public int y = 0;
 
+	public boolean remove = false;
+
 	public ArchiTeKNode(String name, String comment){
 		super(name);
 		this.name=name;
@@ -37,7 +39,8 @@ public abstract class ArchiTeKNode extends JLabel {
 		removeButton.setBorder(null);
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// REMOVE ME
+				remove = true;
+				ArchiTeK.getInstance().panel.updateFrame();
 			}
 		});
 	}
