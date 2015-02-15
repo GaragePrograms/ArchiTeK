@@ -22,6 +22,7 @@ public class PluginManager {
 	   
 	public ProgrammingLanguage language;
 	public ArrayList<ProgrammingLanguage> languages = new ArrayList<ProgrammingLanguage>();
+	public ArrayList<Plugin> plugins = new ArrayList<Plugin>();
 	
 	public Property getProperty(String name){
 		for (Property p : this.language.properties){
@@ -45,7 +46,21 @@ public class PluginManager {
 		this.language=this.getLanguage(uniqueID);
 	}
 	
-	public void loadAllPlugins(String libDir){
+	public void loadAllPlugins(){
+		try{
+			this.loadAllPluginsInDir(FilePaths.getGlobalPluginPath().getAbsolutePath());
+		}catch(NullPointerException e){
+			System.out.println("Could not find global plugin path. Does '"+FilePaths.getGlobalPluginPath()+"' exist?");
+		}
+		
+		try{
+			this.loadAllPluginsInDir(FilePaths.getLocalPluginPath().getAbsolutePath());
+		}catch(NullPointerException e){
+			System.out.println("Could not find local plugin path. Does '"+FilePaths.getLocalPluginPath()+"' exist?");
+		}
+	}
+	
+	public void loadAllPluginsInDir(String libDir){
 		File folder = new File(libDir);
 		String[] listOfFiles = folder.list();
 		

@@ -1,5 +1,8 @@
 package io.github.garageprograms.architek.datamodel;
 
+import io.github.garageprograms.architek.io.SaveManager;
+import io.github.garageprograms.architek.plugins.FilePaths;
+
 import java.util.ArrayList;
 
 import org.w3c.dom.Document;
@@ -98,5 +101,24 @@ public class UserProject extends SerializableArchiTeKNode {
 			}
 		}
 		return null;
+	}
+	
+	public void installLibrary(String filename){
+		try{
+			this.addImport(FilePaths.getLocalLibraryPath().getAbsolutePath()+"/"+filename+".ark");
+			return;
+		}catch(NullPointerException e){
+			System.out.println("Could not find local library path. Does '"+FilePaths.getLocalLibraryPath()+"' exist?");
+		}
+		
+		try{
+			this.addImport(FilePaths.getGlobalLibraryPath().getAbsolutePath()+"/"+filename+".ark");
+		}catch(NullPointerException e){
+			System.out.println("Could not find global library path. Does '"+FilePaths.getGlobalLibraryPath()+"' exist?");
+		}
+	}
+	
+	public void addImport(String filename){
+		this.imports.add(SaveManager.loadProject(filename));
 	}
 }
