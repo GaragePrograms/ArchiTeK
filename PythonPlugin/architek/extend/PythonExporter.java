@@ -10,6 +10,7 @@ import java.util.List;
 import io.github.garageprograms.architek.datamodel.UserFile;
 import io.github.garageprograms.architek.datamodel.UserFunction;
 import io.github.garageprograms.architek.datamodel.UserProject;
+import io.github.garageprograms.architek.datamodel.UserVariable;
 import io.github.garageprograms.architek.plugins.Exporter;
 
 public class PythonExporter implements Exporter {
@@ -53,13 +54,20 @@ public class PythonExporter implements Exporter {
 			writer.write("    ");
 		}
 	}
-	public void writeUserFunction(UserFunction f, BufferedWriter writer, int indentationLevel) throws IOException{
+	public void writeUserFunction(UserProject p, UserFunction f, BufferedWriter writer, int indentationLevel) throws IOException{
 		log("Writing function "+f.name+" at indent "+indentationLevel);
 		this.insertIndentation(writer, indentationLevel);writer.write("def ");writer.write(f.name);writer.write("():\n");
-		this.insertIndentation(writer, indentationLevel+1);writer.write("\"\"\"");writer.write(f.comment);writer.write("\"\"\"\n\n");
+		this.insertIndentation(writer, indentationLevel+1);writer.write("pass \"\"\"");writer.write(f.comment);writer.write("\"\"\"\n\n");
 	}
 	
-	public void writeUserFile(UserFile f, File root) throws IOException{
+	public void writeUserVariable(UserProject p, UserVariable v, BufferedWriter writer, int indentationLevel) throws IOException{
+		log("Writing var "+v.name+" at indent "+indentationLevel);
+		this.insertIndentation(writer, indentationLevel);writer.write(v.name+" = None #Should be a(n) ");
+		  writer.write(v.type.name);writer.write(" #TODO: Fill this in\n");
+		this.insertIndentation(writer, indentationLevel);writer.write("  \"\"\""+v.comment+"\"\"\"\n\n");
+	}
+	
+	public void writeUserFile(UserProject p, UserFile f, File root) throws IOException{
 		log("Creating a UserFile from "+f.name);
 		String[] parts = f.name.split("\\.");
 		//System.out.println("Parts: "+parts[0]);
@@ -82,9 +90,12 @@ public class PythonExporter implements Exporter {
 		log("Full module name: "+filePath);
 		ensureDirectoryExists(new File(folderPath));
 		BufferedWriter writer = getWriter(new File(filePath));
-		writer.write("\"\"\""+f.comment+"\"\"\"\n");
+		writer.write("\"\"\""+f.comment+"\"\"\"\n\n");
 		for (UserFunction func : f.encapsulatedFunctions){
-			this.writeUserFunction(func, writer, 0);
+			this.writeUserFunction(p, func, writer, 0);
+		}
+		for (UserVariable var : f.encapsulatedVariables){
+			this.writeUserVariable(p, var, writer, 0);
 		}
 		writer.close();
 	}
@@ -96,7 +107,7 @@ public class PythonExporter implements Exporter {
 		this.recusivleyDelete(root);
 		for (UserFile f : proj.files){
 			try {
-				this.writeUserFile(f, root);
+				this.writeUserFile(proj, f, root);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
