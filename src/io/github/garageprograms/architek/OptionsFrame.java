@@ -22,7 +22,6 @@ public class OptionsFrame extends JFrame {
 	public JTextArea commentBox = new JTextArea(10, 75);
 	boolean editable;
 	public OptionsFrame(ArchiTeKNode node, boolean editable){
-		
 		super("Node Options");this.editable=editable;
 		setSize(600, 400);
 		this.node=node;
@@ -55,7 +54,6 @@ public class OptionsFrame extends JFrame {
 	        		if (of.editable){
 		        		of.node.comment=of.commentBox.getText();
 		        		of.node.setNameAndRefresh(of.nameBox.getText());
-		        		ArchiTeK.getInstance().panel.updateFrame();
 	        		}
 	        		of.dispose();
 	        	}
