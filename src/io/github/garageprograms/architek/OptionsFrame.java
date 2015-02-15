@@ -56,7 +56,8 @@ public class OptionsFrame extends JFrame {
 	         public void actionPerformed(ActionEvent e) {
 	        	 of.node.setNameAndRefresh(of.nameBox.getText());
 	        	 of.node.comment=of.commentBox.getText();
-	        	 ArchiTeK.getInstance().panel.updateFrame();
+	        	 //ArchiTeK.getInstance().panel.updateFrame();
+	        	 of.dispose();
 	         }          
 	      });
 	}

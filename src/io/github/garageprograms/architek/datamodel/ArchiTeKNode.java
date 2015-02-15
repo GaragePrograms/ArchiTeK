@@ -4,6 +4,7 @@ import io.github.garageprograms.architek.OptionsFrame;
 
 import java.awt.Graphics2D;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -43,7 +44,9 @@ public abstract class ArchiTeKNode extends JLabel {
 	}
 	
 	public void setNameAndRefresh(String name){
+		Point p =  this.getLocation();
 		this.name=name;
 		this.setText(name);
+		this.setLocation(p);
 	}
 }
