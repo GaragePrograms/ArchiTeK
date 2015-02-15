@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.garageprograms.architek.datamodel.UserFile;
+import io.github.garageprograms.architek.datamodel.UserFunction;
 import io.github.garageprograms.architek.datamodel.UserProject;
 import io.github.garageprograms.architek.plugins.Exporter;
 
@@ -33,6 +34,7 @@ public class PythonExporter implements Exporter {
 			log("Didnt delete "+root.getAbsolutePath()+", dosent exist");
 		}
 	}
+
 	
 	public BufferedWriter getWriter(File dest){
 		log("Opening "+dest.getAbsolutePath()+" for writing");
@@ -42,6 +44,19 @@ public class PythonExporter implements Exporter {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void insertIndentation(BufferedWriter writer, int indentationLevel) throws IOException{
+		int i = 0;
+		while (i<indentationLevel){
+			i++;
+			writer.write("    ");
+		}
+	}
+	public void writeUserFunction(UserFunction f, BufferedWriter writer, int indentationLevel) throws IOException{
+		log("Writing function "+f.name+" at indent "+indentationLevel);
+		this.insertIndentation(writer, indentationLevel);writer.write("def ");writer.write(f.name);writer.write("():\n");
+		this.insertIndentation(writer, indentationLevel+1);writer.write("\"\"\"");writer.write(f.comment);writer.write("\"\"\"\n\n");
 	}
 	
 	public void writeUserFile(UserFile f, File root) throws IOException{
@@ -67,7 +82,10 @@ public class PythonExporter implements Exporter {
 		log("Full module name: "+filePath);
 		ensureDirectoryExists(new File(folderPath));
 		BufferedWriter writer = getWriter(new File(filePath));
-		writer.write(f.name);
+		writer.write("\"\"\""+f.comment+"\"\"\"\n");
+		for (UserFunction func : f.encapsulatedFunctions){
+			this.writeUserFunction(func, writer, 0);
+		}
 		writer.close();
 	}
 	
